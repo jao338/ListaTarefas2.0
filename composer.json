@@ -1,0 +1,11 @@
+{
+    "name": "lista/tarefas",
+    "description": "CRUD de uma lista de tarefas usando Composer, NPM e Bootstap",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Lista\\": "src/"
+        }
+    },
+    "require": {}
+}
