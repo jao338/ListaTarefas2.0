@@ -1,6 +1,7 @@
 *{
     padding-left: 0 !important;
     padding-right: 0 !important;
+    
 }
 
 .menu{
@@ -11,6 +12,31 @@
 .content{
     height: 80vh;
     margin-top: 12vh;
+}
+
+.label{
+    font-size: 16pt !important;
+}
+
+.input{
+    height: 40px;
+    padding-left: 16px !important;
+    margin-bottom: 16px !important;
+}
+
+.form-signup{
+    width: 50% !important;
+}
+
+.btn-send-signup{
+    font-size: 14pt !important;
+    height: 56px;
+}
+
+.btn-send-login{
+    margin-top: 16px !important;
+    font-size: 14pt !important;
+    height: 56px;
 }
 
 footer{

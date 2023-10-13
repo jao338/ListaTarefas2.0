@@ -1,9 +1,17 @@
 <?php
 
-require 'vendor/autoload.php';
+require_once 'vendor/autoload.php';
 
-use Lista\Class\User;
+/*
+$user = new \Lista\Class\User;
+$userDAO = new \Lista\Class\UserDAO;
 
+$user->setNome("João Henrique");
+$user->setLogin("jao338");
+$user->setLogin("123456");
+
+$userDAO->create($user);
+*/
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +38,10 @@ use Lista\Class\User;
                     <a href="#"><img src="./src/assets/img/google.png" width="32" alt=""></a>
                 </form>
 
-                <a href="login.php" class="navbar-brand" style="color: white;">Login</a>
+                <div class="navbar-brand">
+                    <a href="login.php" style="color: white; text-decoration: none;">Login</a>
+                    <a href="signup.php" style="color: white; text-decoration: none;">Signup</a>
+                </div>
 
                 <div class="navbar-brand">
                     <a href="#"><img src="./src/assets/img/google.png" width="32" height="32" alt=""></a>
@@ -41,7 +52,9 @@ use Lista\Class\User;
         </nav>
 
         <div class="content">
-
+            <div class="container">
+                
+            </div>
         </div>
 
         <footer class="container-fluid d-flex flex-column justify-content-center">

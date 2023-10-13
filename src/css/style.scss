@@ -59,4 +59,15 @@ $colors: (
   "gray-dark":  $gray-800
 ) !default;
 
+
+.row {
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 0;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+}
+
 @import "import.scss";

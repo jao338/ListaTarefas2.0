@@ -11,7 +11,7 @@ use Lista\Class\User;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de tarefas 2.0 - Login</title>
+    <title>Lista de tarefas 2.0 - Signup</title>
     <link rel="stylesheet" href="src/css/style.min.css">
 </head>
 <body>
@@ -20,12 +20,12 @@ use Lista\Class\User;
             
         <div class="row d-flex" style="height: 100vh;">
             <div class="d-flex justify-content-center align-items-center col-md-6">
-                <img src="src/assets/img/login.svg" alt="" class="w-75">
+                <img src="src/assets/img/signup.svg" alt="" class="w-75">
             </div>
             <div class="d-flex justify-content-center align-items-center col-md-6">
                 <form action="<?php echo $_SERVER['PHP_SELF'];?>", method="POST" class="form-signup d-flex flex-column">
 
-                    <h2 class="">Log in</h2>
+                    <h2 class="">Sign up</h2>
 
                     <label for="nome" class="label">Nome</label class="label">
                     <input type="text" name='nome' id='nome' class="input rounded border border-primary">
@@ -33,14 +33,10 @@ use Lista\Class\User;
                     <label for="login" class="label">Login</label>
                     <input type="text" name='login' id='login' class="input rounded border border-primary">
 
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <input type="checkbox" name="remember-flag" id="remember-flag">
-                            <label for="remember-flag">Lembrar de mim</label>
-                        </div>
-                        <a href="#" class="text-decoration-none">Esqueci minha senha</a>
-                    </div>
-                    <button type="submit" class="btn btn-primary rounded btn-send-login">Log in</button>
+                    <label for="senha" class="label">Senha</label class="label">
+                    <input type="password" name='senha' id='senha' class="input rounded border border-primary">
+
+                    <button type="submit" class="btn btn-primary rounded btn-send-signup">Sign up</button>
                 </form>
             </div>
         </div>

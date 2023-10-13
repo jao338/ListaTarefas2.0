@@ -5,23 +5,26 @@ namespace Lista\Class;
 
 class UserDAO{
 
-    public static function create(User $u){
+    public function create(User $u){
+
+        //  Testar
+        $sql = "INSERT INTO `Users` (`Id`, `Nome`, `Login`, `Senha`) VALUES (NULL, '?', '?', '?');";
 
     }
 
-    public static function update(User $u){
+    public function update(User $u){
 
     }
 
-    public static function readLines(){
+    public function readLines(){
 
     }
 
-    public static function readLine($id){
+    public function readLine($id){
 
     }
 
-    public static function delete($id){
+    public function delete($id){
 
     } 
 }
