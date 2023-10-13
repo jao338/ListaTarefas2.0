@@ -1,8 +1,32 @@
 <?php
 
-require 'vendor/autoload.php';
+require_once 'vendor/autoload.php';
+session_start();
 
 use Lista\Class\User;
+
+if(!isset($_POST['btn-send-signup'])){
+
+    if(isset($_POST['senha']) && isset($_POST['login']) && isset($_POST['senha'])){
+        
+        $nome = $_POST['nome'];
+        $login = $_POST['login'];
+        $senha = $_POST['senha'];
+
+        if($nome = "" || $login == "" || $senha == ""){
+
+            $_SESSION['mensagem'] = "Preencha todos os campos corretamente";
+
+            echo $_SESSION['mensagem'];
+        }else{
+            echo $_SESSION['mensagem'];
+
+        }
+    }
+    
+}else{
+    
+}
 
 ?>
 
@@ -41,9 +65,17 @@ use Lista\Class\User;
             </div>
         </div>
 
+        <a href="index.php" class="text-decoration-none arrow-prev-a border rounded-circle">
+            <img src="src/assets/icons/arrow.png" width="32" height="32" class="arrow-prev-img">
+        </a>
+
+        <button class="teste">Teste</button>
+
     </main>
 
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-
+    <script src="./src/js/script.js"></script>
 </body>
 </html>

@@ -2,6 +2,8 @@
 
 require_once 'vendor/autoload.php';
 
+session_start();
+
 /*
 $user = new \Lista\Class\User;
 $userDAO = new \Lista\Class\UserDAO;

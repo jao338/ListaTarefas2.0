@@ -39,6 +39,21 @@
     height: 56px;
 }
 
+.arrow-prev-a{
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    position: absolute;
+    top: 5vh;
+    left: 5vw;
+}
+
+.arrow-prev-img{
+    transform: rotate(180deg) !important;
+}
+
+
 footer{
     background-color: black !important;
     height: 8vh;
