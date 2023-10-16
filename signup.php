@@ -15,11 +15,10 @@ if(!isset($_POST['btn-send-signup'])){
 
         if($nome = "" || $login == "" || $senha == ""){
 
-            $_SESSION['mensagem'] = "Preencha todos os campos corretamente";
+            $_SESSION['mensagem'] = "Preencha todos os campos corretamente!";
+            $_SESSION['titulo'] = "Campos inválidos";
 
-            echo $_SESSION['mensagem'];
         }else{
-            echo $_SESSION['mensagem'];
 
         }
     }
@@ -48,7 +47,6 @@ if(!isset($_POST['btn-send-signup'])){
             </div>
             <div class="d-flex justify-content-center align-items-center col-md-6">
                 <form action="<?php echo $_SERVER['PHP_SELF'];?>", method="POST" class="form-signup d-flex flex-column">
-
                     <h2 class="">Sign up</h2>
 
                     <label for="nome" class="label">Nome</label class="label">
@@ -69,13 +67,12 @@ if(!isset($_POST['btn-send-signup'])){
             <img src="src/assets/icons/arrow.png" width="32" height="32" class="arrow-prev-img">
         </a>
 
-        <button class="teste">Teste</button>
-
     </main>
 
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
     <script src="./node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="./src/js/script.js"></script>
+    
 </body>
 </html>

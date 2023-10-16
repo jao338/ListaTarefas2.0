@@ -19,6 +19,7 @@
   "homepage": "https://github.com/jao338/ListaTarefas2.0#readme",
   "dependencies": {
     "bootstrap": "^5.3.2",
+    "bootstrap-icons": "^1.11.1",
     "jquery": "^3.7.1",
     "node-sass": "^9.0.0",
     "popper": "^1.0.1"

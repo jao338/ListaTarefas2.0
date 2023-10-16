@@ -53,6 +53,44 @@
     transform: rotate(180deg) !important;
 }
 
+.card-message{
+    width: 20vw;
+    position: absolute;
+    top: 5vh;
+    left: 75vw;
+}
+
+.card-header-message{
+    background-color: whitesmoke;
+    height: 5vh;
+}
+
+.card-body-message{
+    height: auto;
+}
+
+.padding-16{
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    padding-top: 16px !important;
+    padding-bottom: 16px !important;
+}
+
+.paddingR-16{
+    padding-right: 16px !important;
+}
+
+.paddingL-16{
+    padding-left: 16px !important;
+}
+
+.paddingR-8{
+    padding-right: 8px !important;
+}
+
+.paddingL-8{
+    padding-left: 8px !important;
+}
 
 footer{
     background-color: black !important;
