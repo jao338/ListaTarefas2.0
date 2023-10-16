@@ -7,16 +7,16 @@ use Lista\Class\User;
 
 if(!isset($_POST['btn-send-signup'])){
 
-    if(isset($_POST['senha']) && isset($_POST['login']) && isset($_POST['senha'])){
+    if(isset($_POST['nome']) && isset($_POST['login']) && isset($_POST['senha'])){
         
-        $nome = $_POST['nome'];
-        $login = $_POST['login'];
-        $senha = $_POST['senha'];
+        $nome = filter_input(INPUT_POST,'nome',FILTER_SANITIZE_SPECIAL_CHARS);
+        $login = filter_input(INPUT_POST,'login',FILTER_SANITIZE_SPECIAL_CHARS);
+        $senha = filter_input(INPUT_POST,'senha',FILTER_SANITIZE_SPECIAL_CHARS);
 
-        if($nome = "" || $login == "" || $senha == ""){
+        if(empty($nome) || empty($login) || empty($senha)):
 
-            $_SESSION['mensagem'] = "Preencha todos os campos corretamente!";
-            $_SESSION['titulo'] = "Campos inválidos";
+            $_SESSION['titulo'] = 'Campos inválidos';
+            $_SESSION['mensagem'] = 'Preencha todos os campos';
 
             ?>
 
@@ -29,15 +29,53 @@ if(!isset($_POST['btn-send-signup'])){
 
         <?php
         
-        }else{
+        endif;
 
+        $bool = false;
+
+        for ($i = 0; $i < strlen($nome); $i++) { 
+            if(ctype_digit($nome[$i])){
+                $bool = true;
+                break;
+            }
         }
+
+        if( $bool ):
+
+            $_SESSION['titulo'] = 'Nome inválido';
+            $_SESSION['mensagem'] = 'Nome deve conter apenas letras';
+
+            ?>
+
+            <script>
+                window.onload = function(){
+                    let message = document.querySelector('.card-message');
+                    message.style.display = 'block';
+                }
+            </script>
+
+        <?php
+        
+        endif;
+    }else{
+
+        $_SESSION['titulo'] = 'Sucesso!';
+        $_SESSION['mensagem'] = 'Redirecionando...';
+
+        ?>
+        <script>
+            window.onload = function(){
+
+                let message = document.querySelector('.card-message');
+                
+                message.style.display = 'block';
+            }
+        </script>
+
+        <?php
     }
     
-}else{
-    
 }
-
 ?>
 
 <!DOCTYPE html>
