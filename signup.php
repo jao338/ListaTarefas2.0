@@ -66,7 +66,37 @@ if(!isset($_POST['btn-send-signup'])):
         <?php
 
             else:
-                echo 'Funciona, pelo amor de Deus';
+
+                $options = [
+                    'cost' => 10
+                ];
+
+                $hash = password_hash($senha, PASSWORD_DEFAULT, $options);
+
+                $_SESSION['nome'] = $nome;
+                $_SESSION['login'] = $login;
+                
+                $_SESSION['titulo'] = 'Sucesso!';
+                $_SESSION['mensagem'] = 'Redirecionando...';
+
+                ?>
+
+                <script>
+                    window.onload = function(){
+                        let message = document.querySelector('.card-message');
+
+                        message.style.display = 'block';
+
+                        setTimeout(() => {
+                            
+                            window.location.href = 'index.php';
+                            
+                        }, 3000);
+                    }
+                </script>
+                
+        <?php
+
             endif;
     endif;
     
