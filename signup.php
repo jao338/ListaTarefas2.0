@@ -5,13 +5,22 @@ session_start();
 
 use Lista\Class\User;
 
-if(!isset($_POST['btn-send-signup'])){
+if(!isset($_POST['btn-send-signup'])):
 
-    if(isset($_POST['nome']) && isset($_POST['login']) && isset($_POST['senha'])){
+    if(isset($_POST['nome']) && isset($_POST['login']) && isset($_POST['senha'])):
         
         $nome = filter_input(INPUT_POST,'nome',FILTER_SANITIZE_SPECIAL_CHARS);
         $login = filter_input(INPUT_POST,'login',FILTER_SANITIZE_SPECIAL_CHARS);
         $senha = filter_input(INPUT_POST,'senha',FILTER_SANITIZE_SPECIAL_CHARS);
+
+        $bool = false;
+
+        for ($i = 0; $i < strlen($nome); $i++) { 
+            if(ctype_digit($nome[$i])){
+                $bool = true;
+                break;
+            }
+        }
 
         if(empty($nome) || empty($login) || empty($senha)):
 
@@ -24,23 +33,18 @@ if(!isset($_POST['btn-send-signup'])){
                 window.onload = function(){
                     let message = document.querySelector('.card-message');
                     message.style.display = 'block';
+
+                    setTimeout(() => {
+                        message.style.display = 'none';
+                        
+                    }, 5000);
                 }
             </script>
 
         <?php
+
         
-        endif;
-
-        $bool = false;
-
-        for ($i = 0; $i < strlen($nome); $i++) { 
-            if(ctype_digit($nome[$i])){
-                $bool = true;
-                break;
-            }
-        }
-
-        if( $bool ):
+        elseif( $bool ):
 
             $_SESSION['titulo'] = 'Nome inválido';
             $_SESSION['mensagem'] = 'Nome deve conter apenas letras';
@@ -51,31 +55,24 @@ if(!isset($_POST['btn-send-signup'])){
                 window.onload = function(){
                     let message = document.querySelector('.card-message');
                     message.style.display = 'block';
+
+                    setTimeout(() => {
+                        message.style.display = 'none';
+                        
+                    }, 5000);
                 }
             </script>
 
         <?php
-        
-        endif;
-    }else{
 
-        $_SESSION['titulo'] = 'Sucesso!';
-        $_SESSION['mensagem'] = 'Redirecionando...';
-
-        ?>
-        <script>
-            window.onload = function(){
-
-                let message = document.querySelector('.card-message');
-                
-                message.style.display = 'block';
-            }
-        </script>
-
-        <?php
-    }
+            else:
+                echo 'Funciona, pelo amor de Deus';
+            endif;
+    endif;
     
-}
+endif;
+
+
 ?>
 
 <!DOCTYPE html>

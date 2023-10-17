@@ -28,11 +28,11 @@ use Lista\Class\User;
 
                     <h2 class="">Log in</h2>
 
-                    <label for="nome" class="label">Nome</label class="label">
-                    <input type="text" name='nome' id='nome' class="input rounded border border-primary">
-
-                    <label for="login" class="label">Login</label>
+                    <label for="login" class="label">Login</label class="label">
                     <input type="text" name='login' id='login' class="input rounded border border-primary">
+
+                    <label for="senha" class="label">Senha</label>
+                    <input type="text" name='senha' id='senha' class="input rounded border border-primary">
 
                     <div class="d-flex justify-content-between">
                         
