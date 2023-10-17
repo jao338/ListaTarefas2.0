@@ -6,7 +6,7 @@ class Connect{
 
     private static $instance;
 
-    public static function getConn(){
+    public static function Connect(){
 
         //  Verifica se existe uma instancia, se não houver uma instância é criada. Usa-se o "self", pois trata-se de um método estático. Retorna o atributo $instance.
         if(!isset(self::$instance)){

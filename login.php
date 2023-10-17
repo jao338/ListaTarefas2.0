@@ -1,5 +1,6 @@
 <?php
 
+//  Inclui autoload das classes usando composer
 require 'vendor/autoload.php';
 
 use Lista\Class\User;

@@ -1,20 +1,28 @@
 <?php
 
+//  Inclui autoload das classes usando composer
 require_once 'vendor/autoload.php';
+
 session_start();
 
-use Lista\Class\User;
+$user = new \Lista\Class\User;
+$userDAO = new \Lista\Class\UserDAO;
 
+//  Se existir algo em 'btn-send-signup' 
 if(!isset($_POST['btn-send-signup'])):
 
+    //  Se existir algo em 'nome', em 'login' e em 'senha' 
     if(isset($_POST['nome']) && isset($_POST['login']) && isset($_POST['senha'])):
         
+        //  Atribui e filtra os resultados vindo a superglobal POST
         $nome = filter_input(INPUT_POST,'nome',FILTER_SANITIZE_SPECIAL_CHARS);
         $login = filter_input(INPUT_POST,'login',FILTER_SANITIZE_SPECIAL_CHARS);
         $senha = filter_input(INPUT_POST,'senha',FILTER_SANITIZE_SPECIAL_CHARS);
 
+        //  Define uma variávl booleana.
         $bool = false;
 
+        //  Percorre cada caractere da string $nome e verifica se é um número ou não. Caso seja um número, a variável $bool recebe true
         for ($i = 0; $i < strlen($nome); $i++) { 
             if(ctype_digit($nome[$i])){
                 $bool = true;
@@ -22,8 +30,10 @@ if(!isset($_POST['btn-send-signup'])):
             }
         }
 
+        //  Verifca se entre $nome, $login e $senha existe algum vazio.
         if(empty($nome) || empty($login) || empty($senha)):
 
+            //  Exibe uma mensagem de erro através da superglobal session
             $_SESSION['titulo'] = 'Campos inválidos';
             $_SESSION['mensagem'] = 'Preencha todos os campos';
 
@@ -31,9 +41,13 @@ if(!isset($_POST['btn-send-signup'])):
 
             <script>
                 window.onload = function(){
+                    //  Seleciona o elemento 'card-message'
                     let message = document.querySelector('.card-message');
+
+                    //  Define o display para 'block' (por padrão está definido como 'none')
                     message.style.display = 'block';
 
+                    //  Determina um intervalo de 5 segundos que o elemento ficará visível.
                     setTimeout(() => {
                         message.style.display = 'none';
                         
@@ -43,9 +57,10 @@ if(!isset($_POST['btn-send-signup'])):
 
         <?php
 
-        
+        //  Ocorre se $bool retornar true. Ou seja, caso dentro da string $nome exista algum número
         elseif( $bool ):
 
+            //  Exibe uma mensagem de erro através da superglobal session
             $_SESSION['titulo'] = 'Nome inválido';
             $_SESSION['mensagem'] = 'Nome deve conter apenas letras';
 
@@ -53,9 +68,13 @@ if(!isset($_POST['btn-send-signup'])):
 
             <script>
                 window.onload = function(){
+                    //  Seleciona o elemento 'card-message'
                     let message = document.querySelector('.card-message');
+
+                    //  Define o display para 'block' (por padrão está definido como 'none')
                     message.style.display = 'block';
 
+                    //  Determina um intervalo de 5 segundos que o elemento ficará visível.
                     setTimeout(() => {
                         message.style.display = 'none';
                         
@@ -67,31 +86,36 @@ if(!isset($_POST['btn-send-signup'])):
 
             else:
 
+                //  Define um array com um índice chamado 'cost'.
                 $options = [
                     'cost' => 10
                 ];
 
+                //  Criptografa $senha com criptografia do tipo bcrypt com custo 10 (o padrão também é 10) definido em $options
                 $hash = password_hash($senha, PASSWORD_DEFAULT, $options);
 
                 $_SESSION['nome'] = $nome;
                 $_SESSION['login'] = $login;
-                
-                $_SESSION['titulo'] = 'Sucesso!';
-                $_SESSION['mensagem'] = 'Redirecionando...';
+
+                //  Define os atributos do usuário com os Gettters e Setters
+                $user->setNome($nome);
+                $user->setLogin($login);
+                $user->setSenha($hash);
+
+                //  Chama a função 'create' que recebe como parâmetro um objeto da classe User
+                $userDAO->create($user);
 
                 ?>
 
                 <script>
                     window.onload = function(){
-                        let message = document.querySelector('.card-message');
 
-                        message.style.display = 'block';
-
+                        //  Define um intervalo que redireciona para a index
                         setTimeout(() => {
                             
                             window.location.href = 'index.php';
                             
-                        }, 3000);
+                        }, 1500);
                     }
                 </script>
                 
