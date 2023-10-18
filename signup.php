@@ -93,8 +93,7 @@ if(!isset($_POST['btn-send-signup'])):
 
                 //  Criptografa $senha com criptografia do tipo bcrypt com custo 10 (o padrão também é 10) definido em $options
                 $hash = password_hash($senha, PASSWORD_DEFAULT, $options);
-
-                $_SESSION['nome'] = $nome;
+                
                 $_SESSION['login'] = $login;
 
                 //  Define os atributos do usuário com os Gettters e Setters

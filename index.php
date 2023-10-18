@@ -6,34 +6,9 @@
     session_start();
 
     //  Verifica se a superglobal session contém login e nome
-    if(isset($_SESSION['login']) || isset($_SESSION['nome'])):
+    if(isset($_SESSION['login'])):
 
-        ?>
-
-        <script>
-            //  Ao abrir a página deleta os links de login e signup. Cria um novo link que leva para a página de perfil
-            window.onload = function(){
-                let log = document.querySelector('.log'); //    navbar-brand log
-                let a = document.createElement('a');
-                let img = document.createElement('img');
-
-                a.setAttribute('href', 'perfil.php');
-
-                img.setAttribute('src', "./src/assets/img/google.png");
-                img.setAttribute('width', "32");
-                img.setAttribute('height', "32");
-
-                log.innerHTML = '';
-
-                a.append(img);
-                log.append(a);
-                
-                
-            }
-        </script>
-    <?php
-    
-    else:
+        else:
         
     endif;
 
@@ -51,7 +26,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de tarefas 2.0</title>
+    <title>Lista de tarefas 2.0 - Index</title>
     <link rel="stylesheet" href="src/css/style.min.css">
 </head>
 <body>
@@ -96,6 +71,31 @@
         <div class="content">
             <div class="container">
                 
+                <div class="row">
+
+                    <div class="row col-md-4 d-flex flex-column" style="border: 1px solid;">
+                        <div class="col-md-6" style=" width: 100%;">
+                            <img src="./src/assets/img/google.png"alt="" class="w-75 border rounded-circle">
+                                  
+                            <div class="input-group" style="width: 50%;">
+                                <label for="arquivo">Enviar um arquivo</label>
+                                <input type="file" class="form-control" id="arquivo" name="arquivo">
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6 pT-16">
+                            <h5>Nome: </h5>
+                            <div>Login: </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-8" style="border: 1px solid;">
+                        <div>Right</div>
+                    </div>
+
+                </div>
+
             </div>
         </div>
 

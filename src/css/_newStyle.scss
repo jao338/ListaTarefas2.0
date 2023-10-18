@@ -84,6 +84,16 @@
     height: auto;
 }
 
+.profile{
+    height: 100vh;
+}
+
+#arquivo{
+    display: none !important;
+}
+
+//  Margin
+
 .mR-16{
     margin-right: 16px !important;
 }
@@ -99,6 +109,8 @@
 .mB-16{
     margin-bottom: 16px !important;
 }
+
+//  Padding
 
 .pR-8{
     padding-right: 8px !important;
@@ -122,22 +134,6 @@
 
 .p-16{
     padding: 16px !important;
-}
-
-.paddingR-16{
-    padding-right: 16px !important;
-}
-
-.paddingL-16{
-    padding-left: 16px !important;
-}
-
-.paddingR-8{
-    padding-right: 8px !important;
-}
-
-.paddingL-8{
-    padding-left: 8px !important;
 }
 
 footer{

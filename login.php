@@ -73,7 +73,9 @@ session_start();
 
                             else:
                                 
-                                
+                                $_SESSION['login'] = $login;
+
+                                header('Location: index.php');
 
                         endif;
                         
@@ -138,7 +140,7 @@ session_start();
                     <input type="text" name='login' id='login' class="input rounded border border-primary">
 
                     <label for="senha" class="label">Senha</label>
-                    <input type="text" name='senha' id='senha' class="input rounded border border-primary">
+                    <input type="password" name='senha' id='senha' class="input rounded border border-primary">
 
                     <div class="d-flex justify-content-between">
                         
