@@ -55,7 +55,7 @@ class UserDAO{
 
         if($stmt->rowCount() > 0){
 
-            return $stmt;
+            return $stmt->fetch(\PDO::FETCH_ASSOC);
         }else{
             return NULL;
         }

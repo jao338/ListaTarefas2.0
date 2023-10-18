@@ -13,7 +13,7 @@ session_start();
         if(isset($_POST['login']) && isset($_POST['senha'])):
     
             $login = filter_input(INPUT_POST,'login',FILTER_SANITIZE_SPECIAL_CHARS);
-            $senha = filter_input(INPUT_POST,'senha',FILTER_SANITIZE_SPECIAL_CHARS);
+            $senha = $_POST['senha'];
             
             if(empty($login) || empty($senha)):
 
@@ -42,21 +42,67 @@ session_start();
 
                 else:
 
-                    if($userDAO->selectLogin($login)){
+                    if($userDAO->selectLogin($login)):
+
+                        $hashBD = implode($userDAO->selectUser($login));
                         
-                        $options = [
-                            'cost' => 10
-                        ];
+                        if(!password_verify($senha, $hashBD)):
+                            
+                            $_SESSION['titulo'] = 'Campos inválidos';
+                            $_SESSION['mensagem'] = 'Login ou senha incorretos';
 
-                        $hash = password_hash($senha, PASSWORD_DEFAULT, $options);
+                        ?>
 
-                        $hashBanco = $userDAO->selectUser($login);
+                        <script>
+                            window.onload = function(){
+                                //  Seleciona o elemento 'card-message'
+                                let message = document.querySelector('.card-message');
 
-                        $pdo = $userDAO->selectUser($login);
+                                //  Define o display para 'block' (por padrão está definido como 'none')
+                                message.style.display = 'block';
 
-                    }else{
-                        echo "Deu errado";
-                    }
+                                //  Determina um intervalo de 5 segundos que o elemento ficará visível.
+                                setTimeout(() => {
+                                    message.style.display = 'none';
+                                    
+                                }, 5000);
+                            }
+                        </script>
+
+                        <?php
+
+                            else:
+                                
+                                
+
+                        endif;
+                        
+                    else:
+
+                        $_SESSION['titulo'] = 'Usuário inexistente';
+                        $_SESSION['mensagem'] = 'Usuário não encontrado';
+
+                        ?>
+
+                        <script>
+                            window.onload = function(){
+                                //  Seleciona o elemento 'card-message'
+                                let message = document.querySelector('.card-message');
+
+                                //  Define o display para 'block' (por padrão está definido como 'none')
+                                message.style.display = 'block';
+
+                                //  Determina um intervalo de 5 segundos que o elemento ficará visível.
+                                setTimeout(() => {
+                                    message.style.display = 'none';
+                                    
+                                }, 5000);
+                            }
+                        </script>
+
+                        <?php
+                        
+                    endif;
 
             endif;
 
