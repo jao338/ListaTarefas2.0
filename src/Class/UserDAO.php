@@ -6,8 +6,6 @@ class UserDAO{
 
     public function create(User $u){
 
-        //  Testar
-        //$sql = "INSERT INTO `Users` (`Id`, `Nome`, `Login`, `Senha`) VALUES (NULL, '?', '?', '?');";
         $sql = "INSERT INTO Users (Nome, Login, Senha) VALUES (?,?,?)";
 
         $stmt = Connect::Connect()->prepare($sql);
@@ -23,17 +21,46 @@ class UserDAO{
 
     }
 
-    public function readLines(){
-
-    }
-
-    public function readLine($id){
+    public function read(){
 
     }
 
     public function delete($id){
 
-    } 
+    }
+    
+    public function selectLogin($login){
+
+        $sql = "SELECT * FROM Users WHERE Login = '$login'";
+
+        $stmt = Connect::Connect()->prepare($sql);
+
+        $stmt->execute();
+
+        if($stmt->rowCount() > 0){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+    public function selectUser($login){
+
+        $sql = "SELECT Senha FROM Users WHERE Login = '$login'";
+
+        $stmt = Connect::Connect()->prepare($sql);
+
+        $stmt->execute();
+
+        if($stmt->rowCount() > 0){
+
+            return $stmt;
+        }else{
+            return NULL;
+        }
+
+    }
 }
 
 ?>

@@ -77,8 +77,8 @@
                 </div>
 
                 <div class="navbar-brand log">
-                    <a href="login.php" style="color: white; text-decoration: none;">Login</a>
-                    <a href="signup.php" style="color: white; text-decoration: none;">Signup</a>
+                    <a href="login.php" style="color: white;" class="text-decoration-none">Login</a>
+                    <a href="signup.php" style="color: white;" class="text-decoration-none">Signup</a>
                 </div>
 
                 <form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST" class="d-flex">
@@ -112,8 +112,8 @@
                     </div>
 
                     <div class="col-md-4 d-flex justify-content-center">
-                        <a href="#" style="margin-right: 16px;"><img src="./src/assets/img/google.png" width="32" height="32" alt=""></a>
-                        <a href="#" style="margin-left: 16px;"><img src="./src/assets/img/google.png" width="32" height="32" alt=""></a>
+                        <a href="#" class="mR-16"><img src="./src/assets/img/google.png" width="32" height="32" alt=""></a>
+                        <a href="#"class="mL-16"><img src="./src/assets/img/google.png" width="32" height="32" alt=""></a>
                     </div>
                 </div>
             </div>

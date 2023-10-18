@@ -1,0 +1,11 @@
+$spacer: 1rem;
+$spacers: (
+  0: 0,
+  1: $spacer * 8,
+  2: $spacer * 16,
+  3: $spacer,
+  4: $spacer * 32,
+  5: $spacer * 64,
+  6: $space * 128,
+  7: $space * 256
+);

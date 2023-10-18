@@ -75,7 +75,6 @@
     height: 40px !important;
 }
 
-
 .card-header-message{
     background-color: whitesmoke;
     height: 5vh;
@@ -85,11 +84,44 @@
     height: auto;
 }
 
-.padding-16{
-    padding-left: 16px !important;
+.mR-16{
+    margin-right: 16px !important;
+}
+
+.mL-16{
+    margin-left: 16px !important;
+}
+
+.mT-16{
+    margin-top: 16px !important;
+}
+
+.mB-16{
+    margin-bottom: 16px !important;
+}
+
+.pR-8{
+    padding-right: 8px !important;
+}
+
+.pR-16{
     padding-right: 16px !important;
+}
+
+.pL-16{
+    padding-left: 16px !important;
+}
+
+.pT-16{
     padding-top: 16px !important;
+}
+
+.pB-16{
     padding-bottom: 16px !important;
+}
+
+.p-16{
+    padding: 16px !important;
 }
 
 .paddingR-16{
