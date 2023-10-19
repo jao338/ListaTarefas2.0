@@ -45,7 +45,7 @@ class UserDAO{
 
     }
 
-    public function selectUser($login){
+    public function selectPass($login){
 
         $sql = "SELECT Senha FROM Users WHERE Login = '$login'";
 
@@ -58,6 +58,23 @@ class UserDAO{
             return $stmt->fetch(\PDO::FETCH_ASSOC);
         }else{
             return NULL;
+        }
+
+    }
+
+    public function selectUser($login){
+
+        $sql = "SELECT * FROM Users WHERE Login = '$login'";
+
+        $stmt = Connect::Connect()->prepare($sql);
+
+        $stmt->execute();
+
+        if($stmt->rowCount() > 0){
+            
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }else{
+            return [];
         }
 
     }

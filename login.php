@@ -44,7 +44,7 @@ session_start();
 
                     if($userDAO->selectLogin($login)):
 
-                        $hashBD = implode($userDAO->selectUser($login));
+                        $hashBD = implode($userDAO->selectPass($login));
                         
                         if(!password_verify($senha, $hashBD)):
                             
@@ -72,8 +72,12 @@ session_start();
                         <?php
 
                             else:
-                                
-                                $_SESSION['login'] = $login;
+
+                                foreach($userDAO->selectUser($login) as $item){
+                                    $_SESSION['id'] = $item['Id'];
+                                    $_SESSION['nome'] = $item['Nome'];
+                                    $_SESSION['login'] = $item['Login'];
+                                }
 
                                 header('Location: index.php');
 

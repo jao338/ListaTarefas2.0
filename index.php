@@ -111,7 +111,15 @@
                         </div>
 
                         <div class="col-md-6 pT-16">
-                            <h5>Nome: </h5>
+                            <h5>Nome: 
+                                <?php 
+                                    if(isset($_SESSION['nome'])){
+                                        echo $_SESSION['nome'];
+                                    }else{
+                                        echo '';
+                                    }
+                                ?>
+                            </h5>
                             <div>Login: 
                                 <?php 
                                     if(isset($_SESSION['login'])){
