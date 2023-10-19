@@ -104,6 +104,12 @@ if(!isset($_POST['btn-send-signup'])):
                 //  Chama a função 'create' que recebe como parâmetro um objeto da classe User
                 $userDAO->create($user);
 
+                foreach($userDAO->selectUser($login) as $item){
+                    $_SESSION['id'] = $item['Id'];
+                    $_SESSION['nome'] = $item['Nome'];
+                    $_SESSION['login'] = $item['Login'];
+                }
+
                 ?>
 
                 <script>
