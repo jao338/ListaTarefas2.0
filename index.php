@@ -131,13 +131,45 @@
 
                     <div class="col-md-4 d-flex flex-column" style="height: 72vh;">
                         <div class="col-md-6 w-100">
-                            <img src="./src/assets/img/google.png"alt="" class="w-75 border rounded-circle mB-40">
+
+                        <?php 
+                        
+                            if(isset($_SESSION['img'])):
+                                
+                                ?>
+
+                                <script>
+                                    let imgU = document.createElement("img");   //  User
+
+                                    //  Imagem do usário, que está em $_SESSION['img']
+                                </script>
+
+
+                                <?php
+                            else:
+                               
+                                ?>
+
+                                <script>
+                                    let imgS = document.createElement("img");   //  Standard
+
+                                    //  Imagem padrão
+                                </script>
+
+
+                                <?php
+
+
+                            endif;
+                        
+                        ?>
+                            <!--<img src="./src/assets/img/google.png"alt="" class="w-75 border rounded-circle mB-40"> -->
                                   
                             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data">
                                 <div class="d-flex align-items-center w-100 pR-16" style="height: 72px;">
                                     <div class="w-25 upload">
 
-                                        <div class="cu">
+                                        <div class="msg">
                                             <?php 
                                                 if(isset($_FILES['arquivo'])):
 
@@ -147,7 +179,7 @@
 
                                                     <script>
                                                         window.onload = function(){
-                                                            let a = document.querySelector('.cu');
+                                                            let a = document.querySelector('.msg');
 
                                                             setTimeout(() => {
                                                                 a.innerHTML = "Formatos válidos: 'jpg', 'jpeg' e 'png'.";
