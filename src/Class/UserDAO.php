@@ -78,6 +78,16 @@ class UserDAO{
         }
 
     }
+
+    public function insertPhoto($login, $photo){
+
+        $sql = "UPDATE Users SET Img = '$photo' WHERE Login = '$login'";
+
+        $stmt = Connect::Connect()->prepare($sql);
+
+        $stmt->execute();
+
+    }
 }
 
 ?>
