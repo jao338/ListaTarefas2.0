@@ -19,6 +19,29 @@
     else:
         endif;
 
+    if(isset($_POST['btn-send-photo'])){
+        
+        $formatos = array('jpg', 'png', 'jpeg');
+        $extensao = pathinfo($_FILES['arquivo']['name'], PATHINFO_EXTENSION);
+
+        if(in_array($extensao, $formatos)){
+            $pasta = "./src/arquivos/images/";
+
+            $temp = $_FILES['arquivo']['tmp_name'];
+
+            $name = uniqid().".{$extensao}";
+
+            if(move_uploaded_file($temp, $pasta.$name)){
+                echo 'Upload feito com sucesso';
+            }else{
+                echo 'Não foi possível fazer o upload';
+            }
+        }else{
+            echo 'Formato inválido';
+        }
+
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -73,25 +96,36 @@
                 
                 <div class="row">
 
-                    <div class="row col-md-4 d-flex flex-column" style="border: 1px solid;">
-                        <div class="col-md-6" style=" width: 100%;">
-                            <img src="./src/assets/img/google.png"alt="" class="w-75 border rounded-circle">
+                    <div class="row col-md-4 d-flex flex-column">
+                        <div class="col-md-6 w-100">
+                            <img src="./src/assets/img/google.png"alt="" class="w-75 border rounded-circle mB-40">
                                   
-                            <div class="input-group" style="width: 50%;">
-                                <label for="arquivo">Enviar um arquivo</label>
-                                <input type="file" class="form-control" id="arquivo" name="arquivo">
-                            </div>
+                            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data">
+                                <div class="input-group d-flex justify-content-end w-100 pR-16">
+                                    <label for="arquivo" class="btn btn-outline-primary rounded-pill pL-8 pR-8">Escolha um arquivo</label>
+                                    <input type="file" class="form-control" id="arquivo" name="arquivo">
+                                    <button type="submit" class="btn btn-primary border rounded-pill mL-8 pR-16 pL-16" name="btn-send-photo">Enviar</button>
+                                </div>
+                            </form>
 
                         </div>
 
                         <div class="col-md-6 pT-16">
                             <h5>Nome: </h5>
-                            <div>Login: </div>
+                            <div>Login: 
+                                <?php 
+                                    if(isset($_SESSION['login'])){
+                                        echo $_SESSION['login'];
+                                    }else{
+                                        echo '';
+                                    }
+                                ?>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="col-md-8" style="border: 1px solid;">
-                        <div>Right</div>
+                    <div class="col-md-8">
+                        <div></div>
                     </div>
 
                 </div>

@@ -92,7 +92,12 @@
     display: none !important;
 }
 
+
 //  Margin
+
+.mL-8{
+    margin-left: 8px !important;
+}
 
 .mR-16{
     margin-right: 16px !important;
@@ -110,10 +115,18 @@
     margin-bottom: 16px !important;
 }
 
+.mB-40{
+    margin-bottom: 40px !important;
+}
+
 //  Padding
 
 .pR-8{
     padding-right: 8px !important;
+}
+
+.pL-8{
+    padding-left: 8px !important;
 }
 
 .pR-16{
