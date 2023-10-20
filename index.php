@@ -5,45 +5,12 @@
 
     session_start();
 
-    //  Verifica se a superglobal session contém login e nome
-    if(isset($_SESSION['login'])):
-
-        ?>
-
-        <script>
-            //  Exclui os dois links de login e signup e cria um link para o perfil
-            window.onload = function(){
-                let log = document.querySelector(".log");
-                let a = document.createElement('a');
-
-                a.setAttribute('href', 'profile.php');
-                a.classList.add('text-decoration-none');
-                a.style.color = "white";
-                a.innerText = 'Meu perfil';
-
-                log.innerHTML = '';
-                log.append(a);
-            }
-
-            
-        </script>
-    <?php
-        else:
-        
-    endif;
-
-    //  Caso exista algo em 'btn-logout' destroí a session e recarrega a página
-    if(isset($_POST['btn-logout'])):
-        
-        session_unset();
-        session_destroy();
-
-        header('Location: index.php');
-    else:
-        endif;
+    $userDAO = new \Lista\Class\UserDAO;
 
     //  Caso exista algo em 'btn-send-photo' realiza o upload da imagem para o projeto
-    if(isset($_POST['btn-send-photo'])){
+    if(isset($_POST['btn-send-photo'])):
+        
+        if(isset($_SESSION['login'])):
         
         //  Define quais formatos aceitáveis
         $formatos = array('jpg', 'png', 'jpeg');
@@ -52,7 +19,7 @@
         $extensao = pathinfo($_FILES['arquivo']['name'], PATHINFO_EXTENSION);
 
         //  Verifica se a extensão do arquivo temporário é aceitável
-        if(in_array($extensao, $formatos)){
+        if(in_array($extensao, $formatos)):
 
             //  Define qual o diretório será salvo o arquivo
             $pasta = "./src/arquivos/images/";
@@ -66,14 +33,31 @@
             //  Move o arquivo para a pasta correspondente
             if(move_uploaded_file($temp, $pasta.$name)):
                 $_SESSION['upload'] = 'Upload feito com sucesso';
+
+                // $_SESSION['img'] = $userDAO->insertPhoto($login, $temp);
+
             else:
                 $_SESSION['upload'] = 'Não foi possível fazer o upload';
             endif;
-        }else{
+        else:
             $_SESSION['upload'] = 'Formato inválido';
-        }
+        endif;
+        
+        else:
+            $_SESSION['upload'] = 'Faça login primeiro';
+        endif;
 
-    }
+    endif;
+
+    //  Caso exista algo em 'btn-logout' destroí a session e recarrega a página
+    if(isset($_POST['btn-logout'])):
+        
+        session_unset();
+        session_destroy();
+
+        header('Location: index.php');
+    else:
+        endif;
 
 ?>
 
@@ -108,8 +92,27 @@
                 </div>
 
                 <div class="navbar-brand log">
-                    <a href="login.php" style="color: white;" class="text-decoration-none">Login</a>
-                    <a href="signup.php" style="color: white;" class="text-decoration-none">Signup</a>
+
+                <?php
+                
+                    if(!isset($_SESSION['login'])):
+                        
+                        ?>
+
+                        <a href="login.php" class="text-decoration-none" style="color: white;">Login</a>
+                        <a href="signup.php" class="text-decoration-none" style="color: white;">Signup</a>
+
+                    <?php
+                    else:
+
+                        ?>
+
+                        <a href="profile.php" class="text-decoration-none" style="color: white;">Meu perfil</a>
+
+                        <?php
+                    endif;
+                ?>
+
                 </div>
 
                 <form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST" class="d-flex">
@@ -130,7 +133,7 @@
                 <div class="row">
 
                     <div class="col-md-4 d-flex flex-column" style="height: 72vh;">
-                        <div class="col-md-6 w-100">
+                        <div class="col-md-6 w-100 divIMG">
 
                         <?php 
                         
@@ -141,7 +144,7 @@
                                 <script>
                                     let imgU = document.createElement("img");   //  User
 
-                                    //  Imagem do usário, que está em $_SESSION['img']
+                                    //  Imagem do usuário, que está em $_SESSION['img']
                                 </script>
 
 
@@ -151,7 +154,14 @@
                                 ?>
 
                                 <script>
+                                    let divIMG = document.querySelector('.divIMG')
                                     let imgS = document.createElement("img");   //  Standard
+
+                                    imgS.setAttribute('src', "./src/assets/img/google.png");
+                                    imgS.setAttribute('width', "256"); 
+                                    imgS.setAttribute('height', "256");
+                                    
+                                    divIMG.append(imgS);
 
                                     //  Imagem padrão
                                 </script>
@@ -163,7 +173,6 @@
                             endif;
                         
                         ?>
-                            <!--<img src="./src/assets/img/google.png"alt="" class="w-75 border rounded-circle mB-40"> -->
                                   
                             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data">
                                 <div class="d-flex align-items-center w-100 pR-16" style="height: 72px;">
@@ -229,7 +238,15 @@
                     </div>
 
                     <div class="col-md-8">
-                        <div></div>
+                        <div>
+
+                            <?php
+
+                            var_dump($_FILES);
+                            
+                            ?>
+
+                        </div>
                     </div>
 
                 </div>
@@ -248,19 +265,6 @@
                     <div class="col-md-4 d-flex justify-content-center">
                         <p>CRUD - Lista de tarefas com PDO</p>
                     </div>
-                    <!--
-
-                    <div class="col-md-4 d-flex justify-content-center">
-
-                        <a href="https://www.instagram.com/jao_338/" class="mR-16" target="_blank">
-                            <img src="./node_modules/bootstrap-icons/icons/instagram.svg" width="32" height="32" alt="">
-                        </a>
-                        <a href="https://github.com/jao338/" class="mL-16" target="_blank">
-                            <img src="./node_modules/bootstrap-icons/icons/github.svg" width="32" height="32" alt="" >
-                        </a>
-                    </div>
-
-                    -->
                     <div class="col-md-4 d-flex justify-content-center">
                         <a href="https://www.instagram.com/jao_338/" class="mR-16" target="_blank">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-instagram" viewBox="0 0 16 16">
