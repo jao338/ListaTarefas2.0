@@ -28,13 +28,14 @@
             $temp = $_FILES['arquivo']['tmp_name'];
 
             //  Define um novo nome ao arquivo
+            // $name = $_SESSION['login'].".{$extensao}";
             $name = uniqid().".{$extensao}";
 
             //  Move o arquivo para a pasta correspondente
             if(move_uploaded_file($temp, $pasta.$name)):
                 $_SESSION['upload'] = 'Upload feito com sucesso';
 
-                // $_SESSION['img'] = $userDAO->insertPhoto($login, $temp);
+                $userDAO->insertPhoto($_SESSION['login'], $temp);
 
             else:
                 $_SESSION['upload'] = 'Não foi possível fazer o upload';
@@ -45,6 +46,8 @@
         
         else:
             $_SESSION['upload'] = 'Faça login primeiro';
+
+            header('Location: login.php');
         endif;
 
     endif;
@@ -137,38 +140,16 @@
 
                         <?php 
                         
-                            if(isset($_SESSION['img'])):
-                                
-                                ?>
+                            if(isset($_SESSION['img'])):?>
 
-                                <script>
-                                    let imgU = document.createElement("img");   //  User
+                                <img src="./src/assets/img/google.png" class="w-75 rounded-cirlce" alt="">
 
-                                    //  Imagem do usuário, que está em $_SESSION['img']
-                                </script>
+                                <?php 
+                            else: ?>
 
+                                <img src="./src/assets/img/google.png" class="w-75 rounded-cirlce" alt="">
 
                                 <?php
-                            else:
-                               
-                                ?>
-
-                                <script>
-                                    let divIMG = document.querySelector('.divIMG')
-                                    let imgS = document.createElement("img");   //  Standard
-
-                                    imgS.setAttribute('src', "./src/assets/img/google.png");
-                                    imgS.setAttribute('width', "256"); 
-                                    imgS.setAttribute('height', "256");
-                                    
-                                    divIMG.append(imgS);
-
-                                    //  Imagem padrão
-                                </script>
-
-
-                                <?php
-
 
                             endif;
                         
@@ -180,11 +161,7 @@
 
                                         <div class="msg">
                                             <?php 
-                                                if(isset($_FILES['arquivo'])):
-
-                                                    echo $_SESSION['upload'];
-
-                                                    ?>
+                                                if(isset($_FILES['arquivo'])): echo $_SESSION['upload']; ?>
 
                                                     <script>
                                                         window.onload = function(){
@@ -243,6 +220,14 @@
                             <?php
 
                             var_dump($_FILES);
+
+                            echo "<br>";
+
+                            var_dump($_SESSION);
+
+                            echo "<br>";
+
+                            
                             
                             ?>
 

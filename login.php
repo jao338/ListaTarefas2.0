@@ -74,9 +74,13 @@ session_start();
                             else:
 
                                 foreach($userDAO->selectUser($login) as $item){
+
+                                    session_unset();
+
                                     $_SESSION['id'] = $item['Id'];
                                     $_SESSION['nome'] = $item['Nome'];
                                     $_SESSION['login'] = $item['Login'];
+                                    $_SESSION['img'] = $item['Img'];
                                 }
 
                                 header('Location: index.php');

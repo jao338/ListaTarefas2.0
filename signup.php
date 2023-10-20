@@ -108,6 +108,7 @@ if(!isset($_POST['btn-send-signup'])):
                     $_SESSION['id'] = $item['Id'];
                     $_SESSION['nome'] = $item['Nome'];
                     $_SESSION['login'] = $item['Login'];
+                    $_SESSION['img'] = $item['Img'];
                 }
 
                 ?>
