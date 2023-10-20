@@ -102,15 +102,15 @@
                         
                         ?>
 
-                        <a href="login.php" class="text-decoration-none" style="color: white;">Login</a>
-                        <a href="signup.php" class="text-decoration-none" style="color: white;">Signup</a>
+                        <a href="login.php" class="text-decoration-none btn btn-primary rounded-pill pR-16 pL-16">Login</a>
+                        <a href="signup.php" class="text-decoration-none btn btn-light rounded-pill pR-16 pL-16">Signup</a>
 
                     <?php
                     else:
 
                         ?>
 
-                        <a href="profile.php" class="text-decoration-none" style="color: white;">Meu perfil</a>
+                        <a href="profile.php" class="text-decoration-none btn btn-light rounded-pill pR-16 pL-16">Meu perfil</a>
 
                         <?php
                     endif;
@@ -219,6 +219,8 @@
 
                             <?php
 
+                            /*
+
                             var_dump($_FILES);
 
                             echo "<br>";
@@ -227,7 +229,7 @@
 
                             echo "<br>";
 
-                            
+                            */
                             
                             ?>
 
