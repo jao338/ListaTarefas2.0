@@ -5,6 +5,7 @@
 
     session_start();
 
+    $user = new \Lista\Class\User;
     $userDAO = new \Lista\Class\UserDAO;
 
     //  Caso exista algo em 'btn-send-photo' realiza o upload da imagem para o projeto
@@ -59,6 +60,50 @@
         session_destroy();
 
         header('Location: index.php');
+        else:
+    endif;
+
+    if(isset($_POST['btn-send-update'])):
+
+        if(empty($_POST['loginProfile']) || empty($_POST['nomeProfile'])){
+            
+            //  Caso algum campo esteja vazio
+            
+        }else{
+
+            $nome = $_POST['nomeProfile'];
+            $login = $_POST['loginProfile'];
+
+            $user->setNome($nome);
+            $user->setLogin($login);
+            $user->setId($_SESSION['id']);
+
+            $userDAO->update($user);
+
+            session_unset();
+
+            $_SESSION['login'] = $login;
+            $_SESSION['nome'] = $nome;
+
+            header("Location: profile.php");
+
+        }
+
+    else:
+        
+        //  Não enviado
+    endif;
+
+    if(isset($_POST['btn-send-delete'])):
+
+
+        $userDAO->delete($_SESSION['id']);
+        
+        session_unset();
+        session_destroy();
+
+        header('Location: login.php');
+
     else:
         endif;
 
@@ -75,6 +120,27 @@
 <body>
     
     <main class="container-fluid">
+
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+            <div class="modal" id="modalDelete" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Deseja mesmo excluir o perfil?</h5>
+                    </div>
+                    <div class="modal-body">
+                        <h5><?php echo $_SESSION['nome']; ?></h5>
+                        <p><?php echo $_SESSION['login']; ?></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-primary pL-16 pR-16" data-bs-dismiss="modal">Não</button>
+                        <button type="submit" name="btn-send-delete" class="btn btn-danger pL-16 pR-16" data-bs-dismiss="modal">Sim</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
         <nav class="navbar fixed-top navbar-expand-lg menu">
 
             <div class="container d-flex align-items-center">
@@ -135,7 +201,7 @@
                 
             <div class="row">
 
-                <div class="col-md-4 d-flex flex-column" style="height: 72vh;">
+                <div class="col-md-4 d-flex flex-column justify-content-center" style="height: 72vh;">
                     <div class="col-md-6 w-100 divIMG">
                     
                     <img src="./src/assets/img/google.png" class="w-75 rounded-cirlce" alt="">
@@ -161,22 +227,28 @@
                                 }
                             ?>
                         </div>
+
                     </div>
                 </div>
 
-                <div class="d-flex justify-content-center align-items-center col-md-8" style="border: 1px solid;">
-                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" class="d-flex flex-column w-50">
+                <div class="d-flex justify-content-center align-items-center col-md-8">
+                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" class="d-flex flex-column w-50" method="POST">
                         <label for="nomeProfile" class="label-profile">Nome: </label>
-                        <input type="text" name="nome" id="nomeProfile" class="input-profile border border-primary rounded mB-16">
+                        <input type="text" name="nomeProfile" id="nomeProfile" class="input-profile border border-primary rounded mB-16 pL-16" value="<?php echo $_SESSION['nome']; ?>">
                         
                         <label for="loginProfile" class="label-profile">Login: </label>
-                        <input type="text" name="login" id="loginProfile" class="input-profile border border-primary rounded mB-16">
+                        <input type="text" name="loginProfile" id="loginProfile" class="input-profile border border-primary rounded mB-32 pL-16" value="<?php echo $_SESSION['login']; ?>">
 
-                        <label for="senhaProfile" class="label-profile">Senha: </label>
-                        <input type="text" name="senha" id="senhaProfile" class="input-profile border border-primary rounded mB-32">
 
-                        <div class="d-flex justify-content-end">
-                            <button type="submit" name="btn-send-update" class="btn-send-update btn btn-primary pR-16 pL-16">Salvar</button>
+                        
+                        <div class="d-flex justify-content-between">
+                            
+                            <div>Aqui vão as mensagens de erro</div>
+                                
+                            <div>
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#modalDelete" class="btn-send-update btn btn-outline-danger pR-16 pL-16">Excluir</button>
+                                <button type="submit" name="btn-send-update" class="btn-send-update btn btn-primary mL-16 pR-16 pL-16">Salvar</button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -213,6 +285,8 @@
             </div>
 
         </footer>
+
+        
 
     </main>
 

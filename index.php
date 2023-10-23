@@ -135,7 +135,7 @@
                 
                 <div class="row">
 
-                    <div class="col-md-4 d-flex flex-column" style="height: 72vh;">
+                    <div class="col-md-4 d-flex justify-content-center flex-column" style="height: 72vh;">
                         <div class="col-md-6 w-100 divIMG">
 
                         <?php 

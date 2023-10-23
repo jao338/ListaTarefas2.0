@@ -19,6 +19,16 @@ class UserDAO{
 
     public function update(User $u){
 
+        $sql = 'UPDATE Users SET Nome = ?, Login = ? WHERE Id = ?';
+
+        $stmt = Connect::Connect()->prepare($sql);
+
+        $stmt->bindValue(1, $u->getNome());
+        $stmt->bindValue(2, $u->getLogin());
+        $stmt->bindValue(3, $u->getId());
+
+        $stmt->execute();
+
     }
 
     public function read(){
@@ -26,6 +36,14 @@ class UserDAO{
     }
 
     public function delete($id){
+
+        $sql = "DELETE FROM Users WHERE Id = ?";
+
+        $stmt = Connect::Connect()->prepare($sql);
+        
+        $stmt->bindValue(1, $id);
+
+        $stmt->execute();
 
     }
     
