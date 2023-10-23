@@ -153,11 +153,8 @@ session_start();
                     <div class="d-flex justify-content-between">
                         
                         <a href="#" class="text-decoration-none">Esqueci minha senha</a>
-
-                        <div>
-                            <input type="checkbox" name="remember-flag" id="remember-flag">
-                            <label for="remember-flag">Lembrar de mim</label>
-                        </div>
+                        <a href="signup.php" class="text-decoration-none">Não tem cadastro?</a>
+                         
                     </div>
                     <button type="submit" name="btn-send-login" class="btn btn-primary rounded btn-send-login">Log in</button>
                 </form>

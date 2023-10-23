@@ -239,8 +239,6 @@
                         <label for="loginProfile" class="label-profile">Login: </label>
                         <input type="text" name="loginProfile" id="loginProfile" class="input-profile border border-primary rounded mB-32 pL-16" value="<?php echo $_SESSION['login']; ?>">
 
-
-                        
                         <div class="d-flex justify-content-between">
                             
                             <div>Aqui vão as mensagens de erro</div>
