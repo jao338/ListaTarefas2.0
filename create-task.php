@@ -1,12 +1,12 @@
 <?php
 
-    //  Inclui autoload das classes usando composer
+//  Inclui autoload das classes usando composer
     require_once 'vendor/autoload.php';
 
     session_start();
 
-    $user = new \Lista\Class\User;
     $userDAO = new \Lista\Class\UserDAO;
+    $taskDAO = new \Lista\Class\TaskDAO;
 
     //  Caso exista algo em 'btn-send-photo' realiza o upload da imagem para o projeto
     if(isset($_POST['btn-send-photo'])):
@@ -60,52 +60,18 @@
         session_destroy();
 
         header('Location: index.php');
-        else:
-    endif;
-
-    if(isset($_POST['btn-send-update'])):
-
-        if(empty($_POST['loginProfile']) || empty($_POST['nomeProfile'])){
-            
-            //  Caso algum campo esteja vazio
-            
-        }else{
-
-            $nome = $_POST['nomeProfile'];
-            $login = $_POST['loginProfile'];
-
-            $user->setNome($nome);
-            $user->setLogin($login);
-            $user->setId($_SESSION['id']);
-
-            $userDAO->update($user);
-
-            session_unset();
-
-            $_SESSION['login'] = $login;
-            $_SESSION['nome'] = $nome;
-
-            header("Location: profile.php");
-
-        }
-
-    else:
-        
-        //  Não enviado
-    endif;
-
-    if(isset($_POST['btn-send-delete'])):
-
-
-        $userDAO->delete($_SESSION['id']);
-        
-        session_unset();
-        session_destroy();
-
-        header('Location: login.php');
-
     else:
         endif;
+
+    if(isset($_POST['btn-send-task'])){
+        if(isset($_SESSION['login'])){
+            header('Location: create-task.php');
+        }else{
+            header('Location: login.php');
+        }
+    }else{
+
+    }
 
 ?>
 
@@ -114,33 +80,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de tarefas 2.0 - Perfil</title>
+    <title>Lista de tarefas 2.0 - Index</title>
     <link rel="stylesheet" href="src/css/style.min.css">
 </head>
 <body>
     
     <main class="container-fluid">
-
-        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-            <div class="modal" id="modalDelete" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title mx-0 pL-16">Deseja mesmo excluir o perfil?</h5>
-                    </div>
-                    <div class="modal-body">
-                        <h5 class="pL-16"><?php echo $_SESSION['nome']; ?></h5>
-                        <p class="pL-16"><?php echo $_SESSION['login']; ?></p>
-                    </div>
-                    <div class="modal-footer pR-8">
-                        <button type="button" class="btn btn-outline-primary pL-16 pR-16" data-bs-dismiss="modal">Não</button>
-                        <button type="submit" name="btn-send-delete" class="btn btn-danger pL-16 pR-16" data-bs-dismiss="modal">Sim</button>
-                    </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-
         <nav class="navbar fixed-top navbar-expand-lg menu">
 
             <div class="container d-flex align-items-center">
@@ -152,8 +97,8 @@
                 <div class="navbar-brand d-flex align-items-center">
                     <form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST" class="d-flex">
                         <input class="form-control me-2 text-center" type="search" placeholder="Search" aria-label="Search">
-                        <button type="submit" class="btn btn-light btn-search rounded-circle" name="btn-search">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="black" class="bi bi-search" viewBox="0 0 16 16">
+                        <button type="submit" class="btn btn-primary btn-search rounded-circle" name="btn-search">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                             </svg>
                         </button>
@@ -168,15 +113,15 @@
                         
                         ?>
 
-                        <a href="login.php" class="text-decoration-none btn btn-primary">Login</a>
-                        <a href="signup.php" class="text-decoration-none btn btn-primary">Signup</a>
+                        <a href="login.php" class="text-decoration-none btn btn-primary rounded-pill pR-16 pL-16">Login</a>
+                        <a href="signup.php" class="text-decoration-none btn btn-light rounded-pill pR-16 pL-16">Signup</a>
 
                     <?php
                     else:
 
                         ?>
 
-                        <a href="index.php" class="text-decoration-none btn btn-light rounded-pill pR-16 pL-16">Home</a>
+                        <a href="profile.php" class="text-decoration-none btn btn-light rounded-pill pR-16 pL-16">Meu perfil</a>
 
                         <?php
                     endif;
@@ -184,9 +129,9 @@
 
                 </div>
 
-                <form action="index.php" method="POST" class="d-flex">
-                    <button type="submit" class="btn btn-light btn-logout rounded-circle" name="btn-logout">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="black" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+                <form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST" class="d-flex">
+                    <button type="submit" class="btn btn-primary btn-logout rounded-circle" name="btn-logout">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
                         <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
                     </svg>
@@ -199,57 +144,122 @@
         <div class="content">
             <div class="container">
                 
-            <div class="row">
+                <div class="row">
 
-                <div class="col-md-4 d-flex flex-column justify-content-center" style="height: 72vh;">
-                    <div class="col-md-6 w-100 divIMG">
-                    
-                    <img src="./src/assets/img/google.png" class="w-75 rounded-cirlce" alt="">
-                            
-                    </div>
+                    <div class="col-md-4 d-flex justify-content-center flex-column" style="height: 72vh;">
+                        <div class="col-md-6 w-100 divIMG">
 
-                    <div class="col-md-6 pT-16">
-                        <h5>Nome: 
-                            <?php 
-                                if(isset($_SESSION['nome'])){
-                                    echo $_SESSION['nome'];
-                                }else{
-                                    echo '';
-                                }
-                            ?>
-                        </h5>
-                        <div>Login: 
-                            <?php 
-                                if(isset($_SESSION['login'])){
-                                    echo $_SESSION['login'];
-                                }else{
-                                    echo '';
-                                }
-                            ?>
+                        <?php 
+                        
+                            if(isset($_SESSION['img'])):?>
+
+                                <img src="./src/assets/img/google.png" class="w-75 rounded-cirlce" alt="">
+
+                                <?php 
+                            else: ?>
+
+                                <img src="./src/assets/img/google.png" class="w-75 rounded-cirlce" alt="">
+
+                                <?php
+
+                            endif;
+                        
+                        ?>
+                                  
+                            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data">
+                                <div class="d-flex align-items-center w-100 pR-16" style="height: 72px;">
+                                    <div class="w-25 upload">
+
+                                        <div class="msg">
+                                            <?php 
+                                                if(isset($_FILES['arquivo'])): echo $_SESSION['upload']; ?>
+
+                                                    <script>
+                                                        window.onload = function(){
+                                                            let a = document.querySelector('.msg');
+
+                                                            setTimeout(() => {
+                                                                a.innerHTML = "Formatos válidos: 'jpg', 'jpeg' e 'png'.";
+                                                            }, 3000);
+                                                        }
+                                                    </script>
+
+                                                    <?php
+                                                else:
+                                                    echo "Formatos válidos: 'jpg', 'jpeg' e 'png'.";
+                                                endif;
+                                            ?>
+                                        </div>
+                                        
+                                    </div>
+
+                                    <div class="w-75 d-flex justify-content-end">
+                                        <label for="arquivo" class="btn btn-outline-primary rounded-pill pL-8 pR-8">Escolha um arquivo</label>
+                                        <input type="file" class="form-control" id="arquivo" name="arquivo">
+                                        <button type="submit" class="btn btn-primary border rounded-pill mL-8 pR-16 pL-16" name="btn-send-photo">Enviar</button>
+                                    </div>
+                                </div>
+                            </form>
+
                         </div>
 
-                    </div>
-                </div>
-
-                <div class="d-flex justify-content-center align-items-center col-md-8">
-                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" class="d-flex flex-column w-50" method="POST">
-                        <label for="nomeProfile" class="label-profile">Nome: </label>
-                        <input type="text" name="nomeProfile" id="nomeProfile" class="input-profile border border-primary rounded mB-16 pL-16" value="<?php echo $_SESSION['nome']; ?>">
-                        
-                        <label for="loginProfile" class="label-profile">Login: </label>
-                        <input type="text" name="loginProfile" id="loginProfile" class="input-profile border border-primary rounded mB-32 pL-16" value="<?php echo $_SESSION['login']; ?>">
-
-                        <div class="d-flex justify-content-between">
-                            
-                            <div>Aqui vão as mensagens de erro</div>
-                                
-                            <div>
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#modalDelete" class="btn-send-update btn btn-outline-danger pR-16 pL-16 rounded-pill">Excluir</button>
-                                <button type="submit" name="btn-send-update" class="btn-send-update btn btn-primary mL-16 pR-16 pL-16 rounded-pill">Salvar</button>
+                        <div class="col-md-6 pT-16">
+                            <h5>
+                                <?php 
+                                    if(isset($_SESSION['nome'])){
+                                        echo "Nome: ".$_SESSION['nome'];
+                                    }else{
+                                        echo '';
+                                    }
+                                ?>
+                            </h5>
+                            <div> 
+                                <?php 
+                                    if(isset($_SESSION['login'])){
+                                        echo "Login: ".$_SESSION['login'];
+                                    }else{
+                                        echo '';
+                                    }
+                                ?>
                             </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center col-md-8 d-flex flex-column pL-16 pR-16">
+                    
+                    <!-- <h2 class="text-center">Lista de Tarefas</h2> -->
+                    <table class="table mT-16">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col" class="text-center">#</th>
+                                <th scope="col" class="text-center">Titulo</th>
+                                <th scope="col" class="text-center">Descrição</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-body">
+                        <tr>
+                            <th scope="row" class="text-center">1</th>
+                            <td class="text-center">
+                                <input type="text" class="pL-16">
+                            </td>
+                            <td class="text-center">
+                                <input type="text" class="pL-16">
+                            </td>
+                            
+                        </tr>
+
+                        </tbody>
+                        </table>         
+                        
+                        <div class="d-flex justify-content-end w-100 mT-16">
+                            
+                            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                                <button class="btn btn-outline-primary pL-16 pR-16 rounded-pill" onclick="newLine()">Adicionar linha</button>
+                                <button type="submit" class="btn btn-primary rounded-pill pL-16 pR-16" name="btn-send-task">Criar tarefa</button>
+                            </form>
+
+                        </div>
+                    </div>
 
                 </div>
 
@@ -284,14 +294,36 @@
 
         </footer>
 
-        
-
     </main>
 
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
     <script src="./node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="./src/js/index.js"></script>
+    <!-- <script src="./src/js/index.js"></script> -->
+    <script>
+
+        function newLine(){
+
+            let table = document.querySelector('.table-body');
+            
+            let td = document.createElement('td');
+            let input = document.createElement('input');
+            
+            input.setAttribute('type', 'text');
+            td.classList.add('text-center');
+            
+            td.append(input);
+            
+            tr.append(td);
+            
+            let tr = document.createElement('tr');
+            table.append(tr);
+
+
+        }
+
+    </script>
+
     <!--<script src="./src/js/script.js"></script>-->
 
 </body>
