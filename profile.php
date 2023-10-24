@@ -126,13 +126,13 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Deseja mesmo excluir o perfil?</h5>
+                        <h5 class="modal-title mx-0 pL-16">Deseja mesmo excluir o perfil?</h5>
                     </div>
                     <div class="modal-body">
-                        <h5><?php echo $_SESSION['nome']; ?></h5>
-                        <p><?php echo $_SESSION['login']; ?></p>
+                        <h5 class="pL-16"><?php echo $_SESSION['nome']; ?></h5>
+                        <p class="pL-16"><?php echo $_SESSION['login']; ?></p>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer pR-8">
                         <button type="button" class="btn btn-outline-primary pL-16 pR-16" data-bs-dismiss="modal">Não</button>
                         <button type="submit" name="btn-send-delete" class="btn btn-danger pL-16 pR-16" data-bs-dismiss="modal">Sim</button>
                     </div>

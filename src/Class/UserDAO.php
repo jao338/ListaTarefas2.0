@@ -31,10 +31,6 @@ class UserDAO{
 
     }
 
-    public function read(){
-
-    }
-
     public function delete($id){
 
         $sql = "DELETE FROM Users WHERE Id = ?";

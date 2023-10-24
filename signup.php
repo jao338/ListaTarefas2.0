@@ -109,23 +109,9 @@ if(!isset($_POST['btn-send-signup'])):
                     $_SESSION['nome'] = $item['Nome'];
                     $_SESSION['login'] = $item['Login'];
                     $_SESSION['img'] = $item['Img'];
+
+                    header('Location: index.php');
                 }
-
-                ?>
-
-                <script>
-                    window.onload = function(){
-
-                        //  Define um intervalo que redireciona para a index
-                        setTimeout(() => {
-                            
-                            window.location.href = 'index.php';
-                            
-                        }, 1500);
-                    }
-                </script>
-                
-        <?php
 
             endif;
     endif;

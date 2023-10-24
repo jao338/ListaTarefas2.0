@@ -1,8 +1,0 @@
---  Adicionar try-catch as consultas SQL em todas as páginas
---  Adicionar uma mensagem de erro à página de perfil
---  Ajustar responsivo em todas as páginas com exceção de login e cadastro
---  Terminar o upload de arquivo, ainda falta conseguir exibir imagens vindas do banco de dados
---  Adicionar modal do BOOTSTRAP às páginas e atualizar as que já possuem
---  Criar tarefas
---  Adicionar outras cores na raiz do bootstrap
---  Alterar fluxo de páginas de login e signup
