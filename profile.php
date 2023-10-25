@@ -145,7 +145,7 @@
 
             <div class="container d-flex align-items-center">
 
-                <a href="#" class="navbar-brand">
+                <a href="index.php" class="navbar-brand">
                     <img src="./src/assets/img/google.png" width="64" height="64" alt="">
                 </a>
 

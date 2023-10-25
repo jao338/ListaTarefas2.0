@@ -6,6 +6,7 @@
     session_start();
 
     $userDAO = new \Lista\Class\UserDAO;
+    $task = new \Lista\Class\Task;
     $taskDAO = new \Lista\Class\TaskDAO;
 
     //  Caso exista algo em 'btn-send-photo' realiza o upload da imagem para o projeto
@@ -73,6 +74,32 @@
 
     }
 
+    if(isset($_POST['btn-create-task'])):
+            
+        if(empty($_POST['titulo']) || empty($_POST['descricao'])):
+
+            else:
+
+                $titulo = filter_var($_POST['titulo'], FILTER_SANITIZE_SPECIAL_CHARS);
+                $descricao = filter_var($_POST['descricao'], FILTER_SANITIZE_SPECIAL_CHARS);
+
+                $task->setTitulo($titulo);
+                $task->setDescricao($descricao);
+                $task->setStatus(0);
+                $task->setIdUsuario($_SESSION['id']);
+
+                $taskDAO->create($task);
+
+                header('Location: index.php');
+                
+        endif;
+
+        else:
+        
+            // echo 'Não enviado';
+
+    endif;
+
 ?>
 
 <!DOCTYPE html>
@@ -90,7 +117,7 @@
 
             <div class="container d-flex align-items-center">
 
-                <a href="#" class="navbar-brand">
+                <a href="index.php" class="navbar-brand">
                     <img src="./src/assets/img/google.png" width="64" height="64" alt="">
                 </a>
 
@@ -228,37 +255,37 @@
                     <div class="d-flex justify-content-center col-md-8 d-flex flex-column pL-16 pR-16">
                     
                     <!-- <h2 class="text-center">Lista de Tarefas</h2> -->
-                    <table class="table mT-16">
-                        <thead class="table-dark">
+                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                        <table class="table mT-16">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col" class="text-center">#</th>
+                                    <th scope="col" class="text-center">Titulo</th>
+                                    <th scope="col" class="text-center">Descrição</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-body">
                             <tr>
-                                <th scope="col" class="text-center">#</th>
-                                <th scope="col" class="text-center">Titulo</th>
-                                <th scope="col" class="text-center">Descrição</th>
+                                <th scope="row" class="text-center">#</th>
+                                <td class="text-center">
+                                    <input type="text" class="text-center" name="titulo" id="titulo">
+                                </td>
+                                <td class="text-center">
+                                    <input type="text" class="text-center" name="descricao" id="descricao">
+                                </td>
+                                
                             </tr>
-                        </thead>
-                        <tbody class="table-body">
-                        <tr>
-                            <th scope="row" class="text-center">1</th>
-                            <td class="text-center">
-                                <input type="text" class="pL-16">
-                            </td>
-                            <td class="text-center">
-                                <input type="text" class="pL-16">
-                            </td>
-                            
-                        </tr>
 
-                        </tbody>
-                        </table>         
-                        
-                        <div class="d-flex justify-content-end w-100 mT-16">
+                            </tbody>
+                            </table>         
                             
-                            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-                                <button class="btn btn-outline-primary pL-16 pR-16 rounded-pill" onclick="newLine()">Adicionar linha</button>
-                                <button type="submit" class="btn btn-primary rounded-pill pL-16 pR-16" name="btn-send-task">Criar tarefa</button>
-                            </form>
+                            <div class="d-flex justify-content-end w-100 mT-16">
+                            
+                                <button type="submit" class="btn btn-primary rounded-pill pL-16 pR-16" name="btn-create-task">Criar tarefa</button>
 
-                        </div>
+                            </div>
+
+                        </form>
                     </div>
 
                 </div>
@@ -300,30 +327,6 @@
     <script src="./node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- <script src="./src/js/index.js"></script> -->
-    <script>
-
-        function newLine(){
-
-            let table = document.querySelector('.table-body');
-            
-            let td = document.createElement('td');
-            let input = document.createElement('input');
-            
-            input.setAttribute('type', 'text');
-            td.classList.add('text-center');
-            
-            td.append(input);
-            
-            tr.append(td);
-            
-            let tr = document.createElement('tr');
-            table.append(tr);
-
-
-        }
-
-    </script>
-
     <!--<script src="./src/js/script.js"></script>-->
 
 </body>

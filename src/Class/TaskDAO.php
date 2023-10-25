@@ -6,6 +6,17 @@ class TaskDAO{
 
     public function create(Task $t){
 
+        $sql = "INSERT INTO Tarefas (Titulo, Descricao, Status, Id_Usuario) VALUES (?,?,?,?)";
+
+        $stmt = Connect::Connect()->prepare($sql);
+
+        $stmt->bindValue(1, $t->getTitulo());
+        $stmt->bindValue(2, $t->getDescricao());
+        $stmt->bindValue(3, $t->getStatus());
+        $stmt->bindValue(4, $t->getIdUsuario());
+
+        $stmt->execute();
+
     }
 
     public function read($idUsuario){
@@ -29,10 +40,28 @@ class TaskDAO{
 
     public function update(Task $t){
 
+        $sql = "UPDATE Tarefas SET Titulo = ?, Descricao = ?, Status = ? WHERE Id = ?";
+
+        $stmt = Connect::Connect()->prepare($sql);
+
+        $stmt->bindValue(1, $t->getTitulo());
+        $stmt->bindValue(2, $t->getDescricao());
+        $stmt->bindValue(3, $t->getStatus());
+        $stmt->bindValue(4, $t->getId());
+
+        $stmt->execute();
+
     }
 
     public function delete($id){
 
+        $sql = "DELETE FROM Tarefas WHERE Id = ?";
+
+        $stmt = Connect::Connect()->prepare($sql);
+
+        $stmt->bindValue(1, $id);
+
+        $stmt->execute();
     }
 
 }

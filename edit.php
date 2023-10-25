@@ -64,20 +64,25 @@
     else:
         endif;
 
-    if(isset($_POST['btn-send-task'])){
-        if(isset($_SESSION['login'])){
-            header('Location: create-task.php');
+    if(isset($_POST['btn-edit-task'])){
+
+        $task->setTitulo($_POST['titulo']);
+        $task->setDescricao($_POST['descricao']);
+        $task->setIdUsuario($_SESSION['id']);
+        $task->setId($_POST['id']);
+
+        if(!$_POST['checkbox'] == 'on'){
+            $task->setStatus(0);
         }else{
-            header('Location: login.php');
+            $task->setStatus(1);
         }
-    }else{
 
-    }
-
-    if(isset($_GET['id'])){
-        $taskDAO->delete($_GET['id']);
+        $taskDAO->update($task);
 
         header('Location: index.php');
+
+        // echo 'aaaaaaaaaaaa';
+
     }
 
 ?>
@@ -235,144 +240,60 @@
                     <div class="d-flex justify-content-center col-md-8 d-flex flex-column pL-16 pR-16">
                     
                     <!-- <h2 class="text-center">Lista de Tarefas</h2> -->
-                    <table class="table mT-16">
-                        <thead class="table-dark">
+                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                        <table class="table mT-16">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col" class="text-center">#</th>
+                                    <th scope="col" class="text-center">Titulo</th>
+                                    <th scope="col" class="text-center">Descrição</th>
+                                    <th scope="col" class="text-center">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-body">
                             <tr>
-                                <th scope="col" class="text-center">#</th>
-                                <th scope="col" class="text-center">Titulo</th>
-                                <th scope="col" class="text-center">Descrição</th>
-                                <th scope="col" class="text-center">Editar</th>
-                                <th scope="col" class="text-center">Excluir</th>
-                                <th scope="col" class="text-center">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                                <th scope="row" class="text-center">
+                                    <span>#</span>
+                                    <input type="hidden" name="id" value="<?php echo $_GET['id'];?>">
+                                </th>
+                                <td class="text-center">
+                                    <input type="text" class="text-center" name="titulo" id="titulo" value="<?php echo $_GET['titulo'];?>">
+                                </td>
+                                <td class="text-center">
+                                    <input type="text" class="text-center" name="descricao" id="descricao" value="<?php echo $_GET['descricao'];?>">
+                                </td>
 
-                        <?php
-                            
-                            if(isset($_SESSION['login'])):
-                                $task = $taskDAO->read($_SESSION['id']);
-
-                                if($task !== NULL):
-
-                                    foreach ($task as $item):
-                                
-                                        ?>
+                                <td class="text-center">
+                                <?php
+                                    if($_GET['status'] == 1): ?>
     
-                                        <tr>
-                                            <td scope="row" class="text-center">#</td>
-                                            <td class="text-center"><?php echo $item['Titulo']; ?></td>
-                                            <td class="text-center"><?php echo $item['Descricao']; ?></td>
-                                            <td class="text-center">
-                                                <a href="edit.php?id=<?php echo $item['Id'];?>&titulo=<?php echo $item['Titulo'];?>&descricao=<?php echo $item['Descricao'];?>&status=<?php echo $item['Status'];?>">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-copy btn btn-outline-primary" viewBox="0 0 16 16">
-                                                        <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2Zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H6ZM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1H2Z"/>
-                                                    </svg>
-                                                </a>
-                                            </td>
-    
-                                            <td class="text-center">
-                                                <a href="index.php?id=<?php echo $item['Id']; ?>">
-
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-exclude btn btn-outline-danger" viewBox="0 0 16 16">
-                                                        <path d="M0 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2H2a2 2 0 0 1-2-2V2zm12 2H5a1 1 0 0 0-1 1v7h7a1 1 0 0 0 1-1V4z"/>
-                                                    </svg>
-
-                                                </a>
-                                            </td>
-    
-                                            <td class="text-center">
-    
-                                                <?php
-                                                    if($item['Status'] == 1): ?>
-    
-                                                        <input type="checkbox" name="checkbox" class="input-Status" checked>
-    
-                                                    <?php
-                                                        else: ?>
-                                                    
-                                                    <input type="checkbox" name="checkbox" class="input-Status">
-    
-                                                    <?php
-    
-                                                    endif;
-                                                ?>
-                                                
-                                            </td>
-                                            
-                                        </tr>
+                                        <input type="checkbox" name="checkbox" class="input-Status" checked>
     
                                         <?php
+
+                                        else: ?>
+                                                
+                                        <input type="checkbox" name="checkbox" class="input-Status">
     
-                                    endforeach;
+                                        <?php
+                                    endif;
+                                        ?>
+                                
+                                </td>
+                                
+                            </tr>
 
-                                    else:?>
-
-                                    <tr>
-                                        <th scope="row" class="text-center">1</th>
-                                        <td class="text-center">Aqui vai o título</td>
-                                        <td class="text-center">Aqui vai a descrição</td>
-                                        <td class="text-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-copy btn btn-primary" viewBox="0 0 16 16">
-                                                <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2Zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H6ZM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1H2Z"/>
-                                            </svg>
-                                        </td>
-                                        <td class="text-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-exclude btn btn-danger" viewBox="0 0 16 16">
-                                                <path d="M0 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2H2a2 2 0 0 1-2-2V2zm12 2H5a1 1 0 0 0-1 1v7h7a1 1 0 0 0 1-1V4z"/>
-                                            </svg>
-                                        </td>
-
-                                        <td class="text-center">
-                                        
-                                            <input type="checkbox" name="check">
-
-                                        </td>
-                                    </tr>
-
-                                <?php
-
-                                endif;
-
-                            else:
-                                ?>
-                                <tr>
-                                    <th scope="row" class="text-center">1</th>
-                                    <td class="text-center">Aqui vai o título</td>
-                                    <td class="text-center">Aqui vai a descrição</td>
-                                    <td class="text-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-copy btn btn-primary" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2Zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H6ZM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1H2Z"/>
-                                        </svg>
-                                    </td>
-                                    <td class="text-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-exclude btn btn-danger" viewBox="0 0 16 16">
-                                            <path d="M0 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2H2a2 2 0 0 1-2-2V2zm12 2H5a1 1 0 0 0-1 1v7h7a1 1 0 0 0 1-1V4z"/>
-                                        </svg>
-                                    </td>
-
-                                    <td class="text-center">
-                                    
-                                        <input type="checkbox" name="check">
-
-                                    </td>
-                                </tr>
-
-                                <?php
-                            endif;
-
-                        ?>
-
-                        </tbody>
-                        </table>
-                        
-                        <div class="d-flex justify-content-end w-100 mT-16">
+                            </tbody>
+                            </table>         
                             
-                            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-                                <button type="submit" class="btn btn-primary rounded-pill pL-16 pR-16" name="btn-send-task">Criar tarefa</button>
-                            </form>
+                            <div class="d-flex justify-content-end w-100 mT-16">
+                            
+                                <button type="submit" class="btn btn-primary rounded-pill pL-16 pR-16" name="btn-edit-task">Editar tarefa</button>
 
-                        </div>
+                            </div>
+
+                        </form>
+                        
                     </div>
 
                 </div>
