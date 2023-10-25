@@ -64,6 +64,25 @@ class TaskDAO{
         $stmt->execute();
     }
 
+    public function select($titulo){
+
+        $sql = "SELECT * FROM Tarefas WHERE Titulo = ?";
+
+        $stmt = Connect::Connect()->prepare($sql);
+
+        $stmt->bindValue(1, $titulo);
+
+        $stmt->execute();
+
+        if($stmt->rowCount() > 0){
+            
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }else{
+            return NULL;
+        }
+
+    }
+
 }
 
 ?>

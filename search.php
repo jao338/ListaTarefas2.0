@@ -80,20 +80,6 @@
         header('Location: index.php');
     }
 
-    if(isset($_POST['btn-search'])):
-        
-        if(empty($_POST['input-search'])):
-
-        else:
-
-            $titulo = $_POST['input-search'];
-
-            header("Location: search.php?titulo=$titulo");
-        endif;
-
-    endif;
-
-
 ?>
 
 <!DOCTYPE html>
@@ -116,8 +102,8 @@
                 </a>
 
                 <div class="navbar-brand d-flex align-items-center">
-                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" class="d-flex">
-                        <input class="form-control me-2 text-center" type="search" placeholder="Search" aria-label="Search" name="input-search">
+                    <form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST" class="d-flex">
+                        <input class="form-control me-2 text-center" type="search" placeholder="Search" aria-label="Search">
                         <button type="submit" class="btn btn-light btn-search rounded-circle" name="btn-search">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="black" class="bi bi-search" viewBox="0 0 16 16">
                                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
@@ -262,121 +248,57 @@
                         </thead>
                         <tbody>
 
-                        <?php
+                        <?php  
                             
-                            if(isset($_SESSION['login'])):
-                                $task = $taskDAO->read($_SESSION['id']);
+                        foreach ($taskDAO->select($_GET['titulo']) as $item):
+                        
+                            ?>
 
-                                if($task !== NULL):
-
-                                    foreach ($task as $item):
-                                
-                                        ?>
-    
-                                        <tr>
-                                            <td scope="row" class="text-center">#</td>
-                                            <td class="text-center"><?php echo $item['Titulo']; ?></td>
-                                            <td class="text-center"><?php echo $item['Descricao']; ?></td>
-                                            <td class="text-center">
-                                                <a href="edit.php?id=<?php echo $item['Id'];?>&titulo=<?php echo $item['Titulo'];?>&descricao=<?php echo $item['Descricao'];?>&status=<?php echo $item['Status'];?>">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-wrench btn btn-outline-primary" viewBox="0 0 16 16">
-                                                        <path d="M.102 2.223A3.004 3.004 0 0 0 3.78 5.897l6.341 6.252A3.003 3.003 0 0 0 13 16a3 3 0 1 0-.851-5.878L5.897 3.781A3.004 3.004 0 0 0 2.223.1l2.141 2.142L4 4l-1.757.364L.102 2.223zm13.37 9.019.528.026.287.445.445.287.026.529L15 13l-.242.471-.026.529-.445.287-.287.445-.529.026L13 15l-.471-.242-.529-.026-.287-.445-.445-.287-.026-.529L11 13l.242-.471.026-.529.445-.287.287-.445.529-.026L13 11l.471.242z"/>
-                                                    </svg>
-                                                </a>
-                                            </td>
-    
-                                            <td class="text-center">
-                                                <a href="index.php?id=<?php echo $item['Id']; ?>">
-
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x-circle btn btn-outline-danger" viewBox="0 0 16 16">
-                                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                                                    </svg>
-
-                                                </a>
-                                            </td>
-    
-                                            <td class="text-center">
-    
-                                                <?php
-                                                    if($item['Status'] == 1): ?>
-    
-                                                        <input type="checkbox" name="checkbox" class="input-Status" checked>
-    
-                                                    <?php
-                                                        else: ?>
-                                                    
-                                                    <input type="checkbox" name="checkbox" class="input-Status">
-    
-                                                    <?php
-    
-                                                    endif;
-                                                ?>
-                                                
-                                            </td>
-                                            
-                                        </tr>
-    
-                                        <?php
-    
-                                    endforeach;
-
-                                    else:?>
-
-                                    <tr>
-                                        <th scope="row" class="text-center">1</th>
-                                        <td class="text-center">Aqui vai o título</td>
-                                        <td class="text-center">Aqui vai a descrição</td>
-                                        <td class="text-center">
+                                <tr>
+                                    <td scope="row" class="text-center">#</td>
+                                    <td class="text-center"><?php echo $item['Titulo']; ?></td>
+                                    <td class="text-center"><?php echo $item['Descricao']; ?></td>
+                                    <td class="text-center">
+                                        <a href="edit.php?id=<?php echo $item['Id'];?>&titulo=<?php echo $item['Titulo'];?>&descricao=<?php echo $item['Descricao'];?>&status=<?php echo $item['Status'];?>">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-wrench btn btn-outline-primary" viewBox="0 0 16 16">
                                                 <path d="M.102 2.223A3.004 3.004 0 0 0 3.78 5.897l6.341 6.252A3.003 3.003 0 0 0 13 16a3 3 0 1 0-.851-5.878L5.897 3.781A3.004 3.004 0 0 0 2.223.1l2.141 2.142L4 4l-1.757.364L.102 2.223zm13.37 9.019.528.026.287.445.445.287.026.529L15 13l-.242.471-.026.529-.445.287-.287.445-.529.026L13 15l-.471-.242-.529-.026-.287-.445-.445-.287-.026-.529L11 13l.242-.471.026-.529.445-.287.287-.445.529-.026L13 11l.471.242z"/>
                                             </svg>
-                                        </td>
-                                        <td class="text-center">
+                                        </a>
+                                    </td>
+
+                                    <td class="text-center">
+                                        <a href="index.php?id=<?php echo $item['Id']; ?>">
+
                                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x-circle btn btn-outline-danger" viewBox="0 0 16 16">
                                                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                                                 <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
                                             </svg>
-                                        </td>
 
-                                        <td class="text-center">
+                                        </a>
+                                    </td>
+
+                                    <td class="text-center">
+
+                                        <?php
+                                            if($item['Status'] == 1): ?>
+
+                                                <input type="checkbox" name="checkbox" class="input-Status" checked>
+
+                                            <?php
+                                                else: ?>
+                                            
+                                            <input type="checkbox" name="checkbox" class="input-Status">
+
+                                            <?php
+
+                                            endif;
+                                        ?>
                                         
-                                            <input type="checkbox" name="check">
-
-                                        </td>
-                                    </tr>
-
-                                <?php
-
-                                endif;
-
-                            else:
-                                ?>
-                                <tr>
-                                    <th scope="row" class="text-center">1</th>
-                                    <td class="text-center">Aqui vai o título</td>
-                                    <td class="text-center">Aqui vai a descrição</td>
-                                    <td class="text-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-wrench btn btn-outline-primary" viewBox="0 0 16 16">
-                                            <path d="M.102 2.223A3.004 3.004 0 0 0 3.78 5.897l6.341 6.252A3.003 3.003 0 0 0 13 16a3 3 0 1 0-.851-5.878L5.897 3.781A3.004 3.004 0 0 0 2.223.1l2.141 2.142L4 4l-1.757.364L.102 2.223zm13.37 9.019.528.026.287.445.445.287.026.529L15 13l-.242.471-.026.529-.445.287-.287.445-.529.026L13 15l-.471-.242-.529-.026-.287-.445-.445-.287-.026-.529L11 13l.242-.471.026-.529.445-.287.287-.445.529-.026L13 11l.471.242z"/>
-                                        </svg>
                                     </td>
-                                    <td class="text-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x-circle btn btn-outline-danger" viewBox="0 0 16 16">
-                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                                        </svg>
-                                    </td>
-
-                                    <td class="text-center">
                                     
-                                        <input type="checkbox" name="check">
-
-                                    </td>
                                 </tr>
-
                                 <?php
-                            endif;
+                        endforeach;
 
                         ?>
 

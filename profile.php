@@ -123,14 +123,14 @@
 
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
             <div class="modal" id="modalDelete" tabindex="-1">
-                <div class="modal-dialog">
+                <div class="modal-dialog pL-8 pR-8">
                     <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title mx-0 pL-16">Deseja mesmo excluir o perfil?</h5>
                     </div>
                     <div class="modal-body">
-                        <h5 class="pL-16"><?php echo $_SESSION['nome']; ?></h5>
-                        <p class="pL-16"><?php echo $_SESSION['login']; ?></p>
+                        <p class="pL-16"><?php echo $_SESSION['nome']; ?>, caso você delete seu perfil todas as tarefas serão deletadas.</p>
+                        <p class="pL-16">Você tem certeza quer deletar o seu perfil?</p>
                     </div>
                     <div class="modal-footer pR-8">
                         <button type="button" class="btn btn-outline-primary pL-16 pR-16" data-bs-dismiss="modal">Não</button>
