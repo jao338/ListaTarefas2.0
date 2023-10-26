@@ -79,7 +79,7 @@
 
         header('Location: index.php');
     }
-
+    
     if(isset($_POST['btn-search'])):
         
         if(empty($_POST['input-search'])):
@@ -87,12 +87,12 @@
         else:
 
             $titulo = $_POST['input-search'];
+            $id = $_SESSION['id'];
 
-            header("Location: search.php?titulo=$titulo");
+            header("Location: search.php?Titulo=$titulo&Id=$id");
         endif;
 
     endif;
-
 
 ?>
 
@@ -390,6 +390,7 @@
                             </form>
 
                         </div>
+
                     </div>
 
                 </div>

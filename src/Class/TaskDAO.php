@@ -64,13 +64,14 @@ class TaskDAO{
         $stmt->execute();
     }
 
-    public function select($titulo){
+    public function select($titulo, $id){
 
-        $sql = "SELECT * FROM Tarefas WHERE Titulo = ?";
+        $sql = "SELECT * FROM Tarefas WHERE Titulo = ? AND Id_Usuario = ?";
 
         $stmt = Connect::Connect()->prepare($sql);
 
         $stmt->bindValue(1, $titulo);
+        $stmt->bindValue(2, $id);
 
         $stmt->execute();
 
