@@ -64,6 +64,16 @@ class TaskDAO{
         $stmt->execute();
     }
 
+    public function deleteTasks($id){
+        $sql = "DELETE FROM Tarefas WHERE Id_Usuario = ?";
+
+        $stmt = Connect::Connect()->prepare($sql);
+
+        $stmt->bindValue(1, $id);
+
+        $stmt->execute();
+    }
+
     public function select($titulo, $id){
 
         $sql = "SELECT * FROM Tarefas WHERE Titulo = ? AND Id_Usuario = ?";
@@ -80,6 +90,24 @@ class TaskDAO{
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         }else{
             return NULL;
+        }
+
+    }
+
+    public function selectTasks($id){
+
+        $sql = "SELECT * FROM Tarefas WHERE Id_Usuario = ?";
+
+        $stmt = Connect::Connect()->prepare($sql);
+
+        $stmt->bindValue(1, $id);
+
+        $stmt->execute();
+
+        if($stmt->rowCount() > 0){
+            return true;
+        }else{
+            return false;
         }
 
     }

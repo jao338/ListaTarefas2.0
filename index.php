@@ -88,8 +88,10 @@
 
             $titulo = $_POST['input-search'];
             $id = $_SESSION['id'];
-
+                
             header("Location: search.php?Titulo=$titulo&Id=$id");
+            
+
         endif;
 
     endif;

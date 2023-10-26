@@ -1,12 +1,16 @@
 <?php
 
     //  Inclui autoload das classes usando composer
+
+use Lista\Class\TaskDAO;
+
     require_once 'vendor/autoload.php';
 
     session_start();
 
     $user = new \Lista\Class\User;
     $userDAO = new \Lista\Class\UserDAO;
+    $taskDAO = new \Lista\Class\TaskDAO;
 
     //  Caso exista algo em 'btn-send-photo' realiza o upload da imagem para o projeto
     if(isset($_POST['btn-send-photo'])):
@@ -73,6 +77,7 @@
 
             $nome = $_POST['nomeProfile'];
             $login = $_POST['loginProfile'];
+            $id = $_POST['idProfile'];
 
             $user->setNome($nome);
             $user->setLogin($login);
@@ -84,6 +89,7 @@
 
             $_SESSION['login'] = $login;
             $_SESSION['nome'] = $nome;
+            $_SESSION['id'] = $id;
 
             header("Location: profile.php");
 
@@ -91,18 +97,20 @@
 
     else:
         
-        //  Não enviado
     endif;
 
     if(isset($_POST['btn-send-delete'])):
 
+        if($taskDAO->selectTasks($_SESSION['id'])):
+            $taskDAO->deleteTasks($_SESSION['id']);
 
-        $userDAO->delete($_SESSION['id']);
-        
-        session_unset();
-        session_destroy();
+            $userDAO->delete($_SESSION['id']);
+            
+            session_unset();
+            session_destroy();
 
-        header('Location: login.php');
+            header('Location: index.php');
+        endif;
 
         else:
     endif;
@@ -247,6 +255,9 @@
 
                 <div class="d-flex justify-content-center align-items-center col-md-8">
                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" class="d-flex flex-column w-50" method="POST">
+                        
+                        <input type="hidden" name="idProfile" id="idProfile"  class="input-profile border border-primary rounded mB-16 pL-16" value="<?php echo $_SESSION['id']; ?>">
+
                         <label for="nomeProfile" class="label-profile">Nome: </label>
                         <input type="text" name="nomeProfile" id="nomeProfile" class="input-profile border border-primary rounded mB-16 pL-16" value="<?php echo $_SESSION['nome']; ?>">
                         
