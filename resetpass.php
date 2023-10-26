@@ -8,14 +8,16 @@ $userDAO = new \Lista\Class\UserDAO;
 
 session_start();
 
-    if(isset($_POST['btn-send-login'])):
+    if(isset($_POST['btn-send-reset'])):
 
-        if(isset($_POST['login']) && isset($_POST['senha'])):
+        if(isset($_POST['login']) && isset($_POST['senha']) && isset($_POST['confirmSenha']) && isset($_POST['novaSenha'])):
     
-            $login = filter_input(INPUT_POST,'login',FILTER_SANITIZE_SPECIAL_CHARS);
+            $login = $_POST['login'];
             $senha = $_POST['senha'];
+            $novaSenha = $_POST['novaSenha'];
+            $confirmSenha = $_POST['confirmSenha'];
             
-            if(empty($login) || empty($senha)):
+            if(empty($login) || empty($senha) || empty($novaSenha) || empty($confirmSenha)):
 
                 $_SESSION['titulo'] = 'Campos inválidos';
                 $_SESSION['mensagem'] = 'Preencha todos os campos';
@@ -39,10 +41,33 @@ session_start();
             </script>
 
             <?php
+            
+            elseif ($confirmSenha != $novaSenha):
 
-                else:
+                $_SESSION['titulo'] = 'Campos inválidos';
+                $_SESSION['mensagem'] = 'As duas senhas não batem';
 
-                    if($userDAO->selectLogin($login)):
+                ?>
+
+                <script>
+                    window.onload = function(){
+                        //  Seleciona o elemento 'card-message'
+                        let message = document.querySelector('.card-message');
+
+                        //  Define o display para 'block' (por padrão está definido como 'none')
+                        message.style.display = 'block';
+
+                        //  Determina um intervalo de 5 segundos que o elemento ficará visível.
+                        setTimeout(() => {
+                            message.style.display = 'none';
+                            
+                        }, 5000);
+                    }
+                </script>
+
+                <?php
+
+                elseif($userDAO->selectLogin($login)):
 
                         $hashBD = implode($userDAO->selectPass($login));
                         
@@ -68,58 +93,14 @@ session_start();
                                 }, 5000);
                             }
                         </script>
+                    <?php
 
-                        <?php
-
-                            else:
-
-                                foreach($userDAO->selectUser($login) as $item){
-
-                                    session_unset();
-
-                                    $_SESSION['id'] = $item['Id'];
-                                    $_SESSION['nome'] = $item['Nome'];
-                                    $_SESSION['login'] = $item['Login'];
-                                    $_SESSION['img'] = $item['Img'];
-                                }
-
-                                header('Location: index.php');
-
-                        endif;
-                        
-                    else:
-
-                        $_SESSION['titulo'] = 'Campos inválidos';
-                        $_SESSION['mensagem'] = 'Login ou senha incorretos';
-
-                        ?>
-
-                        <script>
-                            window.onload = function(){
-                                //  Seleciona o elemento 'card-message'
-                                let message = document.querySelector('.card-message');
-
-                                //  Define o display para 'block' (por padrão está definido como 'none')
-                                message.style.display = 'block';
-
-                                //  Determina um intervalo de 5 segundos que o elemento ficará visível.
-                                setTimeout(() => {
-                                    message.style.display = 'none';
-                                    
-                                }, 5000);
-                            }
-                        </script>
-
-                        <?php
-                        
-                    endif;
+                endif;
 
             endif;
-
+            
         endif;
-
     endif;
-
 
 ?>
 
@@ -137,12 +118,13 @@ session_start();
             
         <div class="row d-flex" style="height: 100vh;">
             <div class="d-flex justify-content-center align-items-center col-md-6">
-                <img src="src/assets/img/login.svg" alt="" class="w-75">
+                <img src="src/assets/img/reset.svg" alt="" class="w-75">
             </div>
             <div class="d-flex justify-content-center align-items-center col-md-6">
                 <form action="<?php echo $_SERVER['PHP_SELF'];?>"method="POST" class="form-signup d-flex flex-column">
 
-                    <h2 class="mB-16">Log in</h2>
+                    <h2 class="mB-16">Reset Password</h2>
+
 
                     <div class="input-group mB-16">
                         <span class="input-group-text border border-primary pL-8 pR-8 pT-8 pB-8">
@@ -162,13 +144,25 @@ session_start();
                         <input type="password" name="senha" id="senha" class="pL-16 form-control border border-primary" placeholder="Password">
                     </div>
 
-                    <div class="d-flex justify-content-between">
-                        
-                        <a href="resetpass.php" class="text-decoration-none">Esqueci minha senha</a>
-                        <a href="signup.php" class="text-decoration-none">Não tem cadastro?</a>
-                         
+                    <div class="input-group mB-16">
+                        <span class="input-group-text border border-primary pL-8 pR-8 pT-8 pB-8">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
+                                <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>
+                            </svg>
+                        </span>
+                        <input type="password" name="novaSenha" id="novaSenha" class="pL-16 form-control border border-primary" placeholder="New Password">
                     </div>
-                    <button type="submit" name="btn-send-login" class="btn btn-primary rounded btn-send-login">Log in</button>
+
+                    <div class="input-group mB-16">
+                        <span class="input-group-text border border-primary pL-8 pR-8 pT-8 pB-8">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
+                                <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>
+                            </svg>
+                        </span>
+                        <input type="password" name="confirmSenha" id="confirmSenha" class="pL-16 form-control border border-primary" placeholder="Confirm Password">
+                    </div>
+
+                    <button type="submit" name="btn-send-reset" class="btn btn-primary rounded btn-send-login">Confirm</button>
                 </form>
             </div>
         </div>
