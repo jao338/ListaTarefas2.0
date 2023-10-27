@@ -69,11 +69,25 @@ use Lista\Class\TaskDAO;
 
     if(isset($_POST['btn-send-update'])):
 
-        if(empty($_POST['loginProfile']) || empty($_POST['nomeProfile'])){
+        if(empty($_POST['loginProfile']) || empty($_POST['nomeProfile'])):
             
             //  Caso algum campo esteja vazio
+            $_SESSION['titulo'] = 'Campos inválidos';
+            $_SESSION['mensagem'] = 'Preencha todos os campos';
+
+            ?>
+
+            <script>
+                window.onload = function(){
+                    let modal = document.querySelector('#modalEdit');
+
+                    modal.style.display = 'flex';
+                }
+            </script>
+
+            <?php
             
-        }else{
+        else:
 
             $nome = $_POST['nomeProfile'];
             $login = $_POST['loginProfile'];
@@ -93,7 +107,7 @@ use Lista\Class\TaskDAO;
 
             header("Location: profile.php");
 
-        }
+        endif;
 
     else:
         
@@ -145,26 +159,6 @@ use Lista\Class\TaskDAO;
 <body>
     
     <main class="container-fluid">
-
-        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-            <div class="modal" id="modalDelete" tabindex="-1">
-                <div class="modal-dialog pL-8 pR-8">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title mx-0 pL-16">Deseja mesmo excluir o perfil?</h5>
-                    </div>
-                    <div class="modal-body">
-                        <p class="pL-16"><?php echo $_SESSION['nome']; ?>, caso você delete seu perfil todas as tarefas serão deletadas.</p>
-                        <p class="pL-16">Você tem certeza quer deletar o seu perfil?</p>
-                    </div>
-                    <div class="modal-footer pR-8">
-                        <button type="button" class="btn btn-outline-primary pL-16 pR-16" data-bs-dismiss="modal">Não</button>
-                        <button type="submit" name="btn-send-delete" class="btn btn-danger pL-16 pR-16" data-bs-dismiss="modal">Sim</button>
-                    </div>
-                    </div>
-                </div>
-            </div>
-        </form>
 
         <nav class="navbar fixed-top navbar-expand-lg menu">
 
@@ -233,13 +227,13 @@ use Lista\Class\TaskDAO;
                             
                     </div>
 
-                    <div class="col-md-6 pT-16">
+                    <div class="col-md-6 pT-32 w-100" style="height: auto;">
                         <h5>Nome: 
                             <?php 
                                 if(isset($_SESSION['nome'])){
                                     echo $_SESSION['nome'];
                                 }else{
-                                    echo '';
+                                    
                                 }
                             ?>
                         </h5>
@@ -248,7 +242,7 @@ use Lista\Class\TaskDAO;
                                 if(isset($_SESSION['login'])){
                                     echo $_SESSION['login'];
                                 }else{
-                                    echo '';
+                                    
                                 }
                             ?>
                         </div>
@@ -267,9 +261,7 @@ use Lista\Class\TaskDAO;
                         <label for="loginProfile" class="label-profile">Login: </label>
                         <input type="text" name="loginProfile" id="loginProfile" class="input-profile border border-primary rounded mB-32 pL-16" value="<?php echo $_SESSION['login']; ?>">
 
-                        <div class="d-flex justify-content-between">
-                            
-                            <div>Aqui vão as mensagens de erro</div>
+                        <div class="d-flex justify-content-end">
                                 
                             <div>
                                 <button type="button" data-bs-toggle="modal" data-bs-target="#modalDelete" class="btn-send-update btn btn-outline-danger pR-16 pL-16 rounded-pill">Excluir</button>
@@ -312,15 +304,61 @@ use Lista\Class\TaskDAO;
 
         </footer>
 
-        
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+            <div class="modal" id="modalEdit" tabindex="-1">
+                <div class="modal-dialog modal-xl pL-8 pR-8">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title mx-0 pL-16 pR-16"><?php echo $_SESSION['titulo']; ?></h5>
+                    </div>
+                    <div class="modal-body">
+                        <p class="pL-16 pR-16"><?php echo $_SESSION['mensagem']; ?></p>
+                    </div>
+                    <div class="modal-footer pR-8">
+                        <button type="button" class="btn btn-outline-primary pL-16 pR-16 close-modal-login">Ok</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+            <div class="modal" id="modalDelete" tabindex="-1">
+                <div class="modal-dialog modal-lg pL-8 pR-8" >
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title mx-0 pL-16">Deseja mesmo excluir o perfil?</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p class="pL-16"><?php echo $_SESSION['nome']; ?>, caso você delete seu perfil todas as tarefas serão deletadas.</p>
+                        <p class="pL-16">Você tem certeza quer deletar o seu perfil?</p>
+                    </div>
+                    <div class="modal-footer pR-8">
+                        <button type="button" class="btn btn-outline-primary pL-16 pR-16" data-bs-dismiss="modal">Não</button>
+                        <button type="submit" name="btn-send-delete" class="btn btn-danger pL-16 pR-16" data-bs-dismiss="modal">Sim</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </form>
 
     </main>
 
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
     <script src="./node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="./src/js/index.js"></script>
-    <!--<script src="./src/js/script.js"></script>-->
+    <script>
+
+        document.querySelector('.close-modal-login').addEventListener('click', () => {
+
+        let modalMessage = document.querySelector('#modalEdit');
+
+        modalMessage.style.opacity = '0';    
+        modalMessage.style.display = "none";
+
+        });
+
+    </script>
 
 </body>
 </html>

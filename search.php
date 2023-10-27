@@ -178,12 +178,12 @@
                         
                             if(isset($_SESSION['img'])):?>
 
-                                <img src="./src/assets/img/google.png" class="w-75 rounded-cirlce" alt="">
+                                <img src="./src/assets/img/google.png" class="w-75 rounded-circle mB-16" alt="">
 
                                 <?php 
                             else: ?>
 
-                                <img src="./src/assets/img/google.png" class="w-75 rounded-cirlce" alt="">
+                                <img src="./src/assets/img/google.png" class="w-75 rounded-circle mB-16" alt="">
 
                                 <?php
 
@@ -228,13 +228,13 @@
 
                         </div>
 
-                        <div class="col-md-6 pT-16">
+                        <div class="col-md-6 pT-32 w-100" style="height: auto;">
                             <h5>
                                 <?php 
                                     if(isset($_SESSION['nome'])){
                                         echo "Nome: ".$_SESSION['nome'];
                                     }else{
-                                        echo '';
+                                        
                                     }
                                 ?>
                             </h5>
@@ -243,7 +243,7 @@
                                     if(isset($_SESSION['login'])){
                                         echo "Login: ".$_SESSION['login'];
                                     }else{
-                                        echo '';
+                                        
                                     }
                                 ?>
                             </div>

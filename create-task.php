@@ -197,12 +197,12 @@
                         
                             if(isset($_SESSION['img'])):?>
 
-                                <img src="./src/assets/img/google.png" class="w-75 rounded-cirlce" alt="">
+                                <img src="./src/assets/img/google.png" class="w-75 rounded-cirlce mB-16" alt="">
 
                                 <?php 
                             else: ?>
 
-                                <img src="./src/assets/img/google.png" class="w-75 rounded-cirlce" alt="">
+                                <img src="./src/assets/img/google.png" class="w-75 rounded-cirlce mB-16" alt="">
 
                                 <?php
 
@@ -247,7 +247,7 @@
 
                         </div>
 
-                        <div class="col-md-6 pT-16">
+                        <div class="col-md-6 pT-32 w-100" style="height: auto;">
                             <h5>
                                 <?php 
                                     if(isset($_SESSION['nome'])){

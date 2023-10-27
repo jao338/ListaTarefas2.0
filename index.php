@@ -173,18 +173,18 @@
                 <div class="row">
 
                     <div class="col-md-4 d-flex justify-content-center flex-column" style="height: 72vh;">
-                        <div class="col-md-6 w-100 divIMG">
+                        <div class="col-md-6 w-100">
 
                         <?php 
                         
                             if(isset($_SESSION['img'])):?>
 
-                                <img src="./src/assets/img/google.png" class="w-75 rounded-cirlce" alt="">
+                                <img src="./src/assets/img/google.png" class="w-75 rounded-circle mB-16" alt="">
 
                                 <?php 
                             else: ?>
 
-                                <img src="./src/assets/img/google.png" class="w-75 rounded-cirlce" alt="">
+                                <img src="./src/assets/img/google.png" class="w-75 rounded-circle mB-16" alt="">
 
                                 <?php
 
@@ -229,7 +229,7 @@
 
                         </div>
 
-                        <div class="col-md-6 pT-16">
+                        <div class="col-md-6 pT-32 w-100" style="height: auto;">
                             <h5>
                                 <?php 
                                     if(isset($_SESSION['nome'])){
@@ -436,8 +436,6 @@
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
     <script src="./node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="./src/js/index.js"></script>
-    <!--<script src="./src/js/script.js"></script>-->
 
 </body>
 </html>
