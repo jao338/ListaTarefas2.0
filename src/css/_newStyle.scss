@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;800&display=swap');
+
 *{
     padding-left: 0 !important;
     padding-right: 0 !important;
-    
+    font-family: 'Poppins', sans-serif;
 }
 
 .navbar-brand{
@@ -68,7 +70,7 @@
 
 .card-message{
     display: none;
-    width: 20vw;
+    width: auto;
     position: absolute;
     top: 5vh;
     left: 75vw;
@@ -101,6 +103,13 @@
     display: none !important;
 }
 
+.left{
+    height: 100vh;
+}
+
+.rigth{
+    height: 100vh;
+}
 
 //  Margin
 
@@ -198,4 +207,35 @@ footer{
 footer p{
     margin: 0 !important;
     color: white;
+
+}
+
+.link-login{
+    font-size: 12pt;
+}
+
+@media only screen and (max-width: 512px){
+    .form-signup{
+        width: 80% !important;
+    }
+
+    .left{
+        height: 60vh;
+    }
+
+    .right{
+        height: 20vh;
+    }
+
+    .link-login{
+        font-size: 10pt;
+    }
+
+    .card-message{
+        display: none;
+        width: auto;
+        position: absolute;
+        top: 0;
+        left: 25%;
+    }
 }

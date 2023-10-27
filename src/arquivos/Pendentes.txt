@@ -7,4 +7,3 @@
 --  Opção de redefinir senha
 --  Melhorar os modais das páginas
 --  Padronizar as classes css criadas
---  Deletar todas as tarefas antes de excluir o usuário

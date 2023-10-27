@@ -138,6 +138,9 @@ use Lista\Class\TaskDAO;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de tarefas 2.0 - Perfil</title>
     <link rel="stylesheet" href="src/css/style.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
     

@@ -24,17 +24,10 @@ session_start();
 
             <script>
                 window.onload = function(){
-                    //  Seleciona o elemento 'card-message'
-                    let message = document.querySelector('.card-message');
+                    let modal = document.querySelector('#modalLogin');
 
-                    //  Define o display para 'block' (por padrão está definido como 'none')
-                    message.style.display = 'block';
+                    modal.style.display = 'flex';
 
-                    //  Determina um intervalo de 5 segundos que o elemento ficará visível.
-                    setTimeout(() => {
-                        message.style.display = 'none';
-                        
-                    }, 5000);
                 }
             </script>
 
@@ -55,17 +48,9 @@ session_start();
 
                         <script>
                             window.onload = function(){
-                                //  Seleciona o elemento 'card-message'
-                                let message = document.querySelector('.card-message');
+                                let modal = document.querySelector('#modalLogin');
 
-                                //  Define o display para 'block' (por padrão está definido como 'none')
-                                message.style.display = 'block';
-
-                                //  Determina um intervalo de 5 segundos que o elemento ficará visível.
-                                setTimeout(() => {
-                                    message.style.display = 'none';
-                                    
-                                }, 5000);
+                                modal.style.display = 'flex';
                             }
                         </script>
 
@@ -96,17 +81,9 @@ session_start();
 
                         <script>
                             window.onload = function(){
-                                //  Seleciona o elemento 'card-message'
-                                let message = document.querySelector('.card-message');
+                                let modal = document.querySelector('#modalLogin');
 
-                                //  Define o display para 'block' (por padrão está definido como 'none')
-                                message.style.display = 'block';
-
-                                //  Determina um intervalo de 5 segundos que o elemento ficará visível.
-                                setTimeout(() => {
-                                    message.style.display = 'none';
-                                    
-                                }, 5000);
+                                modal.style.display = 'flex';
                             }
                         </script>
 
@@ -130,16 +107,20 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de tarefas 2.0 - Login</title>
     <link rel="stylesheet" href="src/css/style.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+
 </head>
 <body>
     
     <main class="container-fluid">
             
-        <div class="row d-flex" style="height: 100vh;">
-            <div class="d-flex justify-content-center align-items-center col-md-6">
+        <div class="row d-flex">
+            <div class="d-flex justify-content-center align-items-center col-md-6 left">
                 <img src="src/assets/img/login.svg" alt="" class="w-75">
             </div>
-            <div class="d-flex justify-content-center align-items-center col-md-6">
+            <div class="d-flex justify-content-center align-items-center col-md-6 right">
                 <form action="<?php echo $_SERVER['PHP_SELF'];?>"method="POST" class="form-signup d-flex flex-column">
 
                     <h2 class="mB-16">Log in</h2>
@@ -164,11 +145,12 @@ session_start();
 
                     <div class="d-flex justify-content-between">
                         
-                        <a href="resetpass.php" class="text-decoration-none">Esqueci minha senha</a>
-                        <a href="signup.php" class="text-decoration-none">Não tem cadastro?</a>
+                        <a href="resetpass.php" class="link-login text-decoration-none" >Esqueci minha senha</a>
+                        <a href="signup.php" class="link-login text-decoration-none" >Não tem cadastro?</a>
                          
                     </div>
                     <button type="submit" name="btn-send-login" class="btn btn-primary rounded btn-send-login">Log in</button>
+                    <!-- <button type="button" data-bs-toggle="modal" data-bs-target="#modalLogin" class="btn btn-primary pR-16 pL-16 rounded-pill">Login</button> -->
                 </form>
             </div>
         </div>
@@ -177,30 +159,42 @@ session_start();
             <img src="src/assets/icons/arrow.png" width="32" height="32" class="arrow-prev-img">
         </a>
 
-        <div class="card-message border">
-        <div class="card-header-message d-flex justify-content-between align-item-center border">
-            <div class="d-flex align-items-center pL-16">
-                <?php echo $_SESSION['titulo']; ?>
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+            <div class="modal" id="modalLogin" tabindex="-1">
+                <div class="modal-dialog pL-8 pR-8">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title mx-0 pL-16 pR-16 modal-login-title"><?php echo $_SESSION['titulo']; ?></h5>
+                    </div>
+                    <div class="modal-body">
+                        <p class="pL-16 pR-16 modal-login-body"><?php echo $_SESSION['mensagem']; ?></p>
+                    </div>
+                    <div class="modal-footer pR-8">
+                        <button type="button" class="btn btn-outline-primary pL-16 pR-16 close-modal-login">Ok</button>
+                    </div>
+                    </div>
+                </div>
             </div>
-            <div class="closeModal d-flex align-items-center pR-8" style="cursor: pointer;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
-                </svg>
-            </div>
-        </div>
-
-        <div class="card-body-message d-flex justify-content-center align-item-center text-center p-16">
-            <?php echo $_SESSION['mensagem']; ?>
-        </div>
-    </div>
-
-
+        </form>
     </main>
 
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
     <script src="./node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="./src/js/script.js"></script>
+
+    <script>
+
+        document.querySelector('.close-modal-login').addEventListener('click', () => {
+
+        let modalMessage = document.querySelector('#modalLogin');
+
+        modalMessage.style.opacity = '0';    
+        modalMessage.style.display = "none";
+
+        });
+
+    </script>
 
 </body>
 </html>
