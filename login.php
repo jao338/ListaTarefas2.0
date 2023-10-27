@@ -24,10 +24,11 @@ session_start();
 
             <script>
                 window.onload = function(){
-                    let modal = document.querySelector('#modalLogin');
+                    let modal = new bootstrap.Modal(document.getElementById('modalLogin'), {
+                        keyboard: false
+                    })
 
-                    modal.style.display = 'flex';
-
+                    modal.show();
                 }
             </script>
 
@@ -48,9 +49,11 @@ session_start();
 
                         <script>
                             window.onload = function(){
-                                let modal = document.querySelector('#modalLogin');
+                                let modal = new bootstrap.Modal(document.getElementById('modalLogin'), {
+                                    keyboard: false
+                                })
 
-                                modal.style.display = 'flex';
+                                modal.show();
                             }
                         </script>
 
@@ -81,9 +84,11 @@ session_start();
 
                         <script>
                             window.onload = function(){
-                                let modal = document.querySelector('#modalLogin');
+                                let modal = new bootstrap.Modal(document.getElementById('modalLogin'), {
+                                    keyboard: false
+                                })
 
-                                modal.style.display = 'flex';
+                                modal.show();
                             }
                         </script>
 
@@ -150,7 +155,6 @@ session_start();
                          
                     </div>
                     <button type="submit" name="btn-send-login" class="btn btn-primary rounded btn-send-login">Log in</button>
-                    <!-- <button type="button" data-bs-toggle="modal" data-bs-target="#modalLogin" class="btn btn-primary pR-16 pL-16 rounded-pill">Login</button> -->
                 </form>
             </div>
         </div>
@@ -170,7 +174,7 @@ session_start();
                         <p class="pL-16 pR-16 modal-login-body"><?php echo $_SESSION['mensagem']; ?></p>
                     </div>
                     <div class="modal-footer pR-8">
-                        <button type="button" class="btn btn-outline-primary pL-16 pR-16 close-modal-login">Ok</button>
+                        <button type="button" data-bs-dismiss="modal" class="btn btn-outline-primary pL-16 pR-16">Ok</button>
                     </div>
                     </div>
                 </div>
@@ -181,20 +185,6 @@ session_start();
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
     <script src="./node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="./src/js/script.js"></script>
-
-    <script>
-
-        document.querySelector('.close-modal-login').addEventListener('click', () => {
-
-        let modalMessage = document.querySelector('#modalLogin');
-
-        modalMessage.style.opacity = '0';    
-        modalMessage.style.display = "none";
-
-        });
-
-    </script>
 
 </body>
 </html>

@@ -21,7 +21,8 @@
 }
 
 .label{
-    font-size: 16pt !important;
+    font-size: 14pt !important;
+    font-weight: 600;
 }
 
 .input{
@@ -30,13 +31,8 @@
     margin-bottom: 16px !important;
 }
 
-.input-profile{
-    height: 40px;
-}
-
-.label-profile{
-    font-size: 16pt;
-    font-weight: 800;
+.input{
+    height: 48px;
 }
 
 .form-signup{
@@ -163,12 +159,20 @@
     padding-right: 16px !important;
 }
 
+.pR-32{
+    padding-right: 32px !important;
+}
+
 .pR-64{
     padding-right: 64px !important;
 }
 
 .pL-16{
     padding-left: 16px !important;
+}
+
+.pL-32{
+    padding-left: 32px !important;
 }
 
 .pL-64{
@@ -212,6 +216,12 @@ footer p{
 
 .link-login{
     font-size: 12pt;
+}
+
+.title-pages{
+    // color: rgb(11, 110, 253);
+    font-weight: 700;
+    font-size: 26pt;
 }
 
 

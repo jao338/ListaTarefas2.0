@@ -78,11 +78,15 @@ use Lista\Class\TaskDAO;
             ?>
 
             <script>
+                
                 window.onload = function(){
-                    let modal = document.querySelector('#modalEdit');
+                    let modal = new bootstrap.Modal(document.getElementById('modalEdit'), {
+                        keyboard: false
+                    })
 
-                    modal.style.display = 'flex';
+                    modal.show();
                 }
+
             </script>
 
             <?php
@@ -250,16 +254,19 @@ use Lista\Class\TaskDAO;
                     </div>
                 </div>
 
-                <div class="d-flex justify-content-center align-items-center col-md-8">
+                <div class="d-flex justify-content-center align-items-center flex-column col-md-8 ">
+
+                    <h2 class="w-50 mB-32 title-pages">Meu perfil</h2>
+
                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" class="d-flex flex-column w-50" method="POST">
                         
-                        <input type="hidden" name="idProfile" id="idProfile"  class="input-profile border border-primary rounded mB-16 pL-16" value="<?php echo $_SESSION['id']; ?>">
+                        <input type="hidden" name="idProfile" id="idProfile"  class="input border border-primary rounded mB-16 pL-16" value="<?php echo $_SESSION['id']; ?>">
 
-                        <label for="nomeProfile" class="label-profile">Nome: </label>
-                        <input type="text" name="nomeProfile" id="nomeProfile" class="input-profile border border-primary rounded mB-16 pL-16" value="<?php echo $_SESSION['nome']; ?>">
+                        <label for="nomeProfile" class="label">Nome: </label>
+                        <input type="text" name="nomeProfile" id="nomeProfile" class="input border border-primary rounded mB-16 pL-16" value="<?php echo $_SESSION['nome']; ?>">
                         
-                        <label for="loginProfile" class="label-profile">Login: </label>
-                        <input type="text" name="loginProfile" id="loginProfile" class="input-profile border border-primary rounded mB-32 pL-16" value="<?php echo $_SESSION['login']; ?>">
+                        <label for="loginProfile" class="label">Login: </label>
+                        <input type="text" name="loginProfile" id="loginProfile" class="input border border-primary rounded mB-32 pL-16" value="<?php echo $_SESSION['login']; ?>">
 
                         <div class="d-flex justify-content-end">
                                 
@@ -306,7 +313,7 @@ use Lista\Class\TaskDAO;
 
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
             <div class="modal" id="modalEdit" tabindex="-1">
-                <div class="modal-dialog modal-xl pL-8 pR-8">
+                <div class="modal-dialog modal-sm pL-8 pR-8">
                     <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title mx-0 pL-16 pR-16"><?php echo $_SESSION['titulo']; ?></h5>
@@ -315,7 +322,7 @@ use Lista\Class\TaskDAO;
                         <p class="pL-16 pR-16"><?php echo $_SESSION['mensagem']; ?></p>
                     </div>
                     <div class="modal-footer pR-8">
-                        <button type="button" class="btn btn-outline-primary pL-16 pR-16 close-modal-login">Ok</button>
+                        <button type="button" data-bs-dismiss="modal" class="btn btn-outline-primary pL-16 pR-16">Ok</button>
                     </div>
                     </div>
                 </div>
@@ -330,7 +337,7 @@ use Lista\Class\TaskDAO;
                         <h5 class="modal-title mx-0 pL-16">Deseja mesmo excluir o perfil?</h5>
                     </div>
                     <div class="modal-body">
-                        <p class="pL-16"><?php echo $_SESSION['nome']; ?>, caso você delete seu perfil todas as tarefas serão deletadas.</p>
+                        <p class="pL-16"><?php echo $_SESSION['nome']; ?>, caso você delete seu perfil todas as suas tarefas serão deletadas.</p>
                         <p class="pL-16">Você tem certeza quer deletar o seu perfil?</p>
                     </div>
                     <div class="modal-footer pR-8">
@@ -347,18 +354,6 @@ use Lista\Class\TaskDAO;
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
     <script src="./node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script>
-
-        document.querySelector('.close-modal-login').addEventListener('click', () => {
-
-        let modalMessage = document.querySelector('#modalEdit');
-
-        modalMessage.style.opacity = '0';    
-        modalMessage.style.display = "none";
-
-        });
-
-    </script>
 
 </body>
 </html>

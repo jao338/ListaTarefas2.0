@@ -41,9 +41,11 @@ if(isset($_POST['btn-send-signup'])):
 
             <script>
                 window.onload = function(){
-                    let modal = document.querySelector('#modalSignup');
+                    let modal = new bootstrap.Modal(document.getElementById('modalSignup'), {
+                        keyboard: false
+                    })
 
-                    modal.style.display = 'flex';
+                    modal.show();
                 }
             </script>
 
@@ -60,9 +62,11 @@ if(isset($_POST['btn-send-signup'])):
 
             <script>
                 window.onload = function(){
-                    let modal = document.querySelector('#modalSignup');
+                    let modal = new bootstrap.Modal(document.getElementById('modalSignup'), {
+                        keyboard: false
+                    })
 
-                    modal.style.display = 'flex';
+                    modal.show();
                 }
             </script>
 
@@ -177,7 +181,7 @@ endif;
                         <p class="pL-16 pR-16"><?php echo $_SESSION['mensagem']; ?></p>
                     </div>
                     <div class="modal-footer pR-8">
-                        <button type="button" class="btn btn-outline-primary pL-16 pR-16 close-modal-login">Ok</button>
+                        <button type="button" data-bs-dismiss="modal" class="btn btn-outline-primary pL-16 pR-16">Ok</button>
                     </div>
                     </div>
                 </div>
@@ -189,19 +193,6 @@ endif;
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
     <script src="./node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- <script src="./src/js/script.js"></script> -->
-    <script>
-
-        document.querySelector('.close-modal-login').addEventListener('click', () => {
-
-        let modalMessage = document.querySelector('#modalSignup');
-
-        modalMessage.style.opacity = '0';    
-        modalMessage.style.display = "none";
-
-        });
-
-    </script>
     
 </body>
 </html>

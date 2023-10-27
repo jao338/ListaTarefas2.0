@@ -269,7 +269,7 @@
                         </div>
                     </div>
 
-                    <div class="d-flex justify-content-center col-md-8 d-flex flex-column pL-16 pR-16">
+                    <div class="d-flex justify-content-center col-md-8 d-flex flex-column pL-64 pR-64">
                     
                     <!-- <h2 class="text-center">Lista de Tarefas</h2> -->
                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
