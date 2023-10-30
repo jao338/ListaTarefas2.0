@@ -311,7 +311,8 @@
                             
                             <div class="d-flex justify-content-end w-100 mT-16">
                             
-                                <button type="submit" class="btn btn-primary rounded-pill pL-16 pR-16" name="btn-create-task">Criar tarefa</button>
+                                <button type="submit" class="btn btn-primary rounded-pill pL-16 pR-16 mR-16" name="btn-create-task">Criar tarefa</button>
+                                <a href="index.php" class="btn btn-outline-primary rounded-pill pL-16 pR-16">Voltar</a>
 
                             </div>
 

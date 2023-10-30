@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 24/10/2023 às 14:31
+-- Tempo de geração: 30/10/2023 às 15:56
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -40,8 +40,9 @@ CREATE TABLE `Tarefas` (
 --
 
 INSERT INTO `Tarefas` (`Id`, `Titulo`, `Descricao`, `Status`, `Id_Usuario`) VALUES
-(1, 'Titulo de teste', 'Descrição de teste', 1, 4),
-(2, 'Titulo de teste', 'Descricao de teste', 0, 4);
+(35, 'Titulo1', 'Descrição1', 0, 19),
+(36, 'Titulo2', 'Descrição2', 0, 19),
+(37, 'Titulo3', 'Descrição4', 1, 20);
 
 -- --------------------------------------------------------
 
@@ -62,9 +63,9 @@ CREATE TABLE `Users` (
 --
 
 INSERT INTO `Users` (`Id`, `Nome`, `Login`, `Senha`, `Img`) VALUES
-(4, 'João Henrique', 'jao338', '$2y$10$C2AT4eTrl20mMjHAeVoKIO4C7.rXKrTTCEv17sEmCQK31c0Qh7gV.', 0x2f6f70742f6c616d70702f74656d702f70687058487a587643),
-(13, 'TesteUpdate', 'teste.123', '$2y$10$w.OXG7AAYBdxgavagqL5Nue0oodO2w9SO.W1yNWjn7AIJo.n4wCs.', NULL),
-(14, 'AAAAAA', 'aaaio', '$2y$10$ktCFIGfn4wXvYT4VS/jkq.wUqTEEsx67PjenTPXZU3P4hS7Nlw.lm', NULL);
+(18, 'Danilo', 'danilo.123', '$2y$10$F304e38ixuk3rDiWjYKMquvju/t6eUP9I1i2tR9clsR9P9Aq8EGMO', 0x2e2f7372632f6172717569766f732f696d616765732f64616e696c6f2e3132332e6a7067),
+(19, 'João Henrique', 'jao338', '$2y$10$62.8P/m3exl6bOc3mYk7eO/CcJSpwuY35qwA9q9o5GpGW.OmlvHPu', 0x2e2f7372632f6172717569766f732f696d616765732f363533666239333835353834632e6a7067),
+(20, 'Teste', 'teete', '$2y$10$.gz6WiRAGUKYj9QjRrrmleCZeu122bf5HLLdZwFvZQD50e/8DEZgS', NULL);
 
 --
 -- Índices para tabelas despejadas
@@ -92,13 +93,13 @@ ALTER TABLE `Users`
 -- AUTO_INCREMENT de tabela `Tarefas`
 --
 ALTER TABLE `Tarefas`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT de tabela `Users`
 --
 ALTER TABLE `Users`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Restrições para tabelas despejadas
