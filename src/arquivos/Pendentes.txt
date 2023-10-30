@@ -1,6 +1,4 @@
---  Adicionar try-catch as consultas SQL em todas as páginas
 --  Ajustar responsivo em todas as páginas com exceção de login e cadastro
---  Terminar o upload de arquivo, ainda falta conseguir exibir imagens que vem do banco de dados
 --  Opção de redefinir senha
---  Melhorar os modais das páginas
 --  Padronizar as classes css criadas
+--  Mudar fluxos das telas, iniciar com login/cadastro

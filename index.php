@@ -339,7 +339,7 @@
                                     else:?>
 
                                     <tr>
-                                        <th scope="row" class="text-center">1</th>
+                                        <th scope="row" class="text-center">#</th>
                                         <td class="text-center">Aqui vai o título</td>
                                         <td class="text-center">Aqui vai a descrição</td>
                                         <td class="text-center">
@@ -368,7 +368,7 @@
                             else:
                                 ?>
                                 <tr>
-                                    <th scope="row" class="text-center">1</th>
+                                    <th scope="row" class="text-center">#</th>
                                     <td class="text-center">Aqui vai o título</td>
                                     <td class="text-center">Aqui vai a descrição</td>
                                     <td class="text-center">

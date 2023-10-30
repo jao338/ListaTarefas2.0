@@ -1,106 +1,101 @@
 <?php
 
 //  Inclui autoload das classes usando composer
-require 'vendor/autoload.php';
-
-//$user = new \Lista\Class\User;
-$userDAO = new \Lista\Class\UserDAO;
+require_once 'vendor/autoload.php';
 
 session_start();
 
-    if(isset($_POST['btn-send-reset'])):
+$user = new \Lista\Class\User;
+$userDAO = new \Lista\Class\UserDAO;
 
-        if(isset($_POST['login']) && isset($_POST['senha']) && isset($_POST['confirmSenha']) && isset($_POST['novaSenha'])):
-    
-            $login = $_POST['login'];
-            $senha = $_POST['senha'];
-            $novaSenha = $_POST['novaSenha'];
-            $confirmSenha = $_POST['confirmSenha'];
-            
-            if(empty($login) || empty($senha) || empty($novaSenha) || empty($confirmSenha)):
+//  Se existir algo em 'btn-send-signup' 
+if(isset($_POST['btn-send-reset'])):
 
-                $_SESSION['titulo'] = 'Campos inválidos';
-                $_SESSION['mensagem'] = 'Preencha todos os campos';
+    //  Se existir algo em 'nome', em 'login' e em 'senha' 
+    if(isset($_POST['login']) && isset($_POST['senha']) && isset($_POST['novaSenha']) && isset($_POST['confirmaSenha'])):
+        
+        //  Atribui e filtra os resultados vindo a superglobal POST
+        $login = $_POST['login'];
+        $senha = $_POST['senha'];
+        $novaSenha = $_POST['novaSenha'];
+        $confirmaSenha = $_POST['confirmaSenha'];
+
+        //  Verifca se entre $nome, $login e $senha existe algum vazio.
+        if(empty($login) || empty($senha) || empty($novaSenha) || empty($confirmaSenha)):
+
+            //  Exibe uma mensagem de erro através da superglobal session
+            $_SESSION['titulo'] = 'Campos inválidos';
+            $_SESSION['mensagem'] = 'Preencha todos os campos';
 
             ?>
 
             <script>
                 window.onload = function(){
-                    //  Seleciona o elemento 'card-message'
-                    let message = document.querySelector('.card-message');
+                    let modal = new bootstrap.Modal(document.getElementById('modalReset'), {
+                        keyboard: false
+                    })
 
-                    //  Define o display para 'block' (por padrão está definido como 'none')
-                    message.style.display = 'block';
-
-                    //  Determina um intervalo de 5 segundos que o elemento ficará visível.
-                    setTimeout(() => {
-                        message.style.display = 'none';
-                        
-                    }, 5000);
+                    modal.show();
                 }
             </script>
 
-            <?php
-            
-            elseif ($confirmSenha != $novaSenha):
+        <?php
 
-                $_SESSION['titulo'] = 'Campos inválidos';
-                $_SESSION['mensagem'] = 'As duas senhas não batem';
+        //  
+        elseif(!$userDAO->selectLogin($login)):
 
-                ?>
+            //  Exibe uma mensagem de erro através da superglobal session
+            $_SESSION['titulo'] = 'Usuário não encontrado';
+            $_SESSION['mensagem'] = 'Usuário inexistente';
 
-                <script>
-                    window.onload = function(){
-                        //  Seleciona o elemento 'card-message'
-                        let message = document.querySelector('.card-message');
+            ?>
 
-                        //  Define o display para 'block' (por padrão está definido como 'none')
-                        message.style.display = 'block';
+            <script>
+                window.onload = function(){
+                    let modal = new bootstrap.Modal(document.getElementById('modalReset'), {
+                        keyboard: false
+                    })
 
-                        //  Determina um intervalo de 5 segundos que o elemento ficará visível.
-                        setTimeout(() => {
-                            message.style.display = 'none';
-                            
-                        }, 5000);
-                    }
-                </script>
+                    modal.show();
+                }
+            </script>
 
-                <?php
+        <?php
 
-                elseif($userDAO->selectLogin($login)):
+            else:
 
-                        $hashBD = implode($userDAO->selectPass($login));
-                        
-                        if(!password_verify($senha, $hashBD)):
-                            
-                            $_SESSION['titulo'] = 'Campos inválidos';
-                            $_SESSION['mensagem'] = 'Login ou senha incorretos';
+                //  Define um array com um índice chamado 'cost'.
+                $options = [
+                    'cost' => 10
+                ];
 
-                        ?>
+                //  Criptografa $senha com criptografia do tipo bcrypt com custo 10 (o padrão também é 10) definido em $options
+                $hash = password_hash($senha, PASSWORD_DEFAULT, $options);
+                
+                $_SESSION['login'] = $login;
 
-                        <script>
-                            window.onload = function(){
-                                //  Seleciona o elemento 'card-message'
-                                let message = document.querySelector('.card-message');
+                //  Define os atributos do usuário com os Gettters e Setters
+                $user->setNome($nome);
+                $user->setLogin($login);
+                $user->setSenha($hash);
 
-                                //  Define o display para 'block' (por padrão está definido como 'none')
-                                message.style.display = 'block';
+                //  Chama a função 'create' que recebe como parâmetro um objeto da classe User
+                $userDAO->create($user);
 
-                                //  Determina um intervalo de 5 segundos que o elemento ficará visível.
-                                setTimeout(() => {
-                                    message.style.display = 'none';
-                                    
-                                }, 5000);
-                            }
-                        </script>
-                    <?php
+                foreach($userDAO->selectUser($login) as $item){
+                    $_SESSION['id'] = $item['Id'];
+                    $_SESSION['nome'] = $item['Nome'];
+                    $_SESSION['login'] = $item['Login'];
+                    $_SESSION['img'] = $item['Img'];
 
-                endif;
+                    header('Location: index.php');
+                }
 
             endif;
-            
-        endif;
     endif;
+    
+endif;
+
 
 ?>
 
@@ -109,7 +104,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de tarefas 2.0 - Login</title>
+    <title>Lista de tarefas 2.0 - Signup</title>
     <link rel="stylesheet" href="src/css/style.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -119,15 +114,13 @@ session_start();
     
     <main class="container-fluid">
             
-        <div class="row d-flex" style="height: 100vh;">
-            <div class="d-flex justify-content-center align-items-center col-md-6">
+        <div class="row d-flex">
+            <div class="d-flex justify-content-center align-items-center col-md-6 left">
                 <img src="src/assets/img/reset.svg" alt="" class="w-75">
             </div>
-            <div class="d-flex justify-content-center align-items-center col-md-6">
-                <form action="<?php echo $_SERVER['PHP_SELF'];?>"method="POST" class="form-signup d-flex flex-column">
-
-                    <h2 class="mB-16">Reset Password</h2>
-
+            <div class="d-flex justify-content-center align-items-center col-md-6 right">
+                <form action="<?php echo $_SERVER['PHP_SELF'];?>", method="POST" class="form-signup d-flex flex-column">
+                    <h2 class="mB-24">Sign up</h2>
 
                     <div class="input-group mB-16">
                         <span class="input-group-text border border-primary pL-8 pR-8 pT-8 pB-8">
@@ -138,7 +131,7 @@ session_start();
                         <input type="text" name="login" id="login" class="pL-16 form-control border border-primary" placeholder="Login">
                     </div>
 
-                    <div class="input-group mB-16">
+                    <div class="input-group mB-24">
                         <span class="input-group-text border border-primary pL-8 pR-8 pT-8 pB-8">
                             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
                                 <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>
@@ -147,7 +140,7 @@ session_start();
                         <input type="password" name="senha" id="senha" class="pL-16 form-control border border-primary" placeholder="Password">
                     </div>
 
-                    <div class="input-group mB-16">
+                    <div class="input-group mB-24">
                         <span class="input-group-text border border-primary pL-8 pR-8 pT-8 pB-8">
                             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
                                 <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>
@@ -156,16 +149,17 @@ session_start();
                         <input type="password" name="novaSenha" id="novaSenha" class="pL-16 form-control border border-primary" placeholder="New Password">
                     </div>
 
-                    <div class="input-group mB-16">
+                    <div class="input-group mB-24">
                         <span class="input-group-text border border-primary pL-8 pR-8 pT-8 pB-8">
                             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
                                 <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>
                             </svg>
                         </span>
-                        <input type="password" name="confirmSenha" id="confirmSenha" class="pL-16 form-control border border-primary" placeholder="Confirm Password">
+                        <input type="password" name="confirmaSenha" id="confirmaSenha" class="pL-16 form-control border border-primary" placeholder="Confirm Password">
                     </div>
 
-                    <button type="submit" name="btn-send-reset" class="btn btn-primary rounded btn-send-login">Confirm</button>
+                    <button type="submit" name="btn-send-reset" class="btn btn-primary rounded btn-send-signup">Change</button>
+
                 </form>
             </div>
         </div>
@@ -174,30 +168,29 @@ session_start();
             <img src="src/assets/icons/arrow.png" width="32" height="32" class="arrow-prev-img">
         </a>
 
-        <div class="card-message border">
-        <div class="card-header-message d-flex justify-content-between align-item-center border">
-            <div class="d-flex align-items-center pL-16">
-                <?php echo $_SESSION['titulo']; ?>
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+            <div class="modal" id="modalReset" tabindex="-1">
+                <div class="modal-dialog pL-8 pR-8">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title mx-0 pL-16 pR-16"><?php echo $_SESSION['titulo']; ?></h5>
+                    </div>
+                    <div class="modal-body">
+                        <p class="pL-16 pR-16"><?php echo $_SESSION['mensagem']; ?></p>
+                    </div>
+                    <div class="modal-footer pR-8">
+                        <button type="button" data-bs-dismiss="modal" class="btn btn-outline-primary pL-16 pR-16">Ok</button>
+                    </div>
+                    </div>
+                </div>
             </div>
-            <div class="closeModal d-flex align-items-center pR-8" style="cursor: pointer;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
-                </svg>
-            </div>
-        </div>
-
-        <div class="card-body-message d-flex justify-content-center align-item-center text-center p-16">
-            <?php echo $_SESSION['mensagem']; ?>
-        </div>
-    </div>
-
+        </form>
 
     </main>
 
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
     <script src="./node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="./src/js/script.js"></script>
-
+    
 </body>
 </html>
