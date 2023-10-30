@@ -37,7 +37,9 @@
             if(move_uploaded_file($temp, $pasta.$name)):
                 $_SESSION['upload'] = 'Upload feito com sucesso';
 
-                $userDAO->insertPhoto($_SESSION['login'], $temp);
+                $userDAO->insertPhoto($_SESSION['login'], $pasta.$name);
+
+                $_SESSION['img'] = $pasta.$name;
 
             else:
                 $_SESSION['upload'] = 'Não foi possível fazer o upload';
@@ -106,10 +108,16 @@
 
         else:
 
-            $titulo = $_POST['input-search'];
-            $id = $_SESSION['id'];
+            if($taskDAO->select($_POST['input-search'], $_SESSION['id']) !== NULL){
+                
+                $titulo = $_POST['input-search'];
+                $id = $_SESSION['id'];
+                    
+                header("Location: search.php?Titulo=$titulo&Id=$id");
 
-            header("Location: search.php?Titulo=$titulo&Id=$id");
+            }else{
+                header('Location: index.php');
+            }
         endif;
 
     endif;
@@ -197,12 +205,17 @@
                         
                             if(isset($_SESSION['img'])):?>
 
-                                <img src="./src/assets/img/google.png" class="w-75 rounded-cirlce mB-16" alt="">
+                                <div style="overflow: hidden; width: 300px !important; height: 300px !important;" class="d-flex justify-content-center align-items-center border rounded-circle">
 
-                                <?php 
+                                    <img src="<?php echo $_SESSION['img']; ?>" class="mB-16 border" alt="" style="transform: scale(.5);">
+
+                                </div>
+
+                                <?php
+
                             else: ?>
 
-                                <img src="./src/assets/img/google.png" class="w-75 rounded-cirlce mB-16" alt="">
+                                <img src="./src/assets/img/google.png" class="w-75 rounded-circle mB-16" alt="">
 
                                 <?php
 

@@ -30,10 +30,7 @@
             $temp = $_FILES['arquivo']['tmp_name'];
 
             //  Define um novo nome ao arquivo
-            // $name = $_SESSION['login'].".{$extensao}";
-            
-            $name = $_SESSION['login'].".{$extensao}";
-            // $name = uniqid().".{$extensao}";
+            $name = uniqid().".{$extensao}";
 
             //  Move o arquivo para a pasta correspondente
             if(move_uploaded_file($temp, $pasta.$name)):
@@ -90,12 +87,16 @@
 
         else:
 
-            $titulo = $_POST['input-search'];
-            $id = $_SESSION['id'];
+            if($taskDAO->select($_POST['input-search'], $_SESSION['id']) !== NULL){
                 
-            header("Location: search.php?Titulo=$titulo&Id=$id");
-            
+                $titulo = $_POST['input-search'];
+                $id = $_SESSION['id'];
+                    
+                header("Location: search.php?Titulo=$titulo&Id=$id");
 
+            }else{
+                header('Location: index.php');
+            }
         endif;
 
     endif;

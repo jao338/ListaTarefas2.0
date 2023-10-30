@@ -40,7 +40,9 @@ use Lista\Class\TaskDAO;
             if(move_uploaded_file($temp, $pasta.$name)):
                 $_SESSION['upload'] = 'Upload feito com sucesso';
 
-                $userDAO->insertPhoto($_SESSION['login'], $temp);
+                $userDAO->insertPhoto($_SESSION['login'], $pasta.$name);
+
+                $_SESSION['img'] = $pasta.$name;
 
             else:
                 $_SESSION['upload'] = 'Não foi possível fazer o upload';
@@ -139,10 +141,17 @@ use Lista\Class\TaskDAO;
 
         else:
 
-            $titulo = $_POST['input-search'];
-            $id = $_SESSION['id'];
+            if($taskDAO->select($_POST['input-search'], $_SESSION['id']) !== NULL){
+                
+                $titulo = $_POST['input-search'];
+                $id = $_SESSION['id'];
+                    
+                header("Location: search.php?Titulo=$titulo&Id=$id");
 
-            header("Location: search.php?Titulo=$titulo&Id=$id");
+            }else{
+                header('Location: index.php');
+            }
+            
         endif;
 
     endif;
@@ -225,11 +234,11 @@ use Lista\Class\TaskDAO;
             <div class="row">
 
                 <div class="col-md-4 d-flex flex-column justify-content-center" style="height: 72vh;">
-                    <div class="col-md-6 w-100 divIMG">
-                    
-                    <img src="./src/assets/img/google.png" class="w-75 rounded-cirlce" alt="">
-                            
-                    </div>
+                <div style="overflow: hidden; width: 300px !important; height: 300px !important;" class="col-md-6 d-flex justify-content-center align-items-center border rounded-circle">
+
+                    <img src="<?php echo $_SESSION['img']; ?>" class="mB-16 border" alt="" style="transform: scale(.5);">
+
+                </div>
 
                     <div class="col-md-6 pT-32 w-100" style="height: auto;">
                         <h5>Nome: 
