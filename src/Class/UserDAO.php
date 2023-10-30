@@ -103,23 +103,22 @@ class UserDAO{
 
     }
 
-    /*
 
     public function selectImg($login){
-        $sql = "SELECT * FROM Users Img WHERE Login = '$login'";
+        $sql = "SELECT Img FROM Users WHERE Login = '$login'";
 
         $stmt = Connect::Connect()->prepare($sql);
 
         $stmt->execute();
 
         if($stmt->rowCount() > 0){
-            $blob = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-        }
 
-        file_put_contents('../arquivos/images/', $blob);
+            return $stmt->fetch(\PDO::FETCH_ASSOC);
+            
+        }
     }
-    
-    */
+
+
 }
 
 ?>

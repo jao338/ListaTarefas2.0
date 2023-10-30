@@ -31,13 +31,15 @@
 
             //  Define um novo nome ao arquivo
             // $name = $_SESSION['login'].".{$extensao}";
-            $name = uniqid().".{$extensao}";
+            
+            $name = $_SESSION['login'].".{$extensao}";
+            // $name = uniqid().".{$extensao}";
 
             //  Move o arquivo para a pasta correspondente
             if(move_uploaded_file($temp, $pasta.$name)):
                 $_SESSION['upload'] = 'Upload feito com sucesso';
 
-                $userDAO->insertPhoto($_SESSION['login'], $temp);
+                $userDAO->insertPhoto($_SESSION['login'], $pasta.$name);
 
             else:
                 $_SESSION['upload'] = 'Não foi possível fazer o upload';
@@ -179,9 +181,15 @@
                         
                             if(isset($_SESSION['img'])):?>
 
-                                <img src="./src/assets/img/google.png" class="w-75 rounded-circle mB-16" alt="">
+                                <?php
 
-                                <?php 
+                                foreach ($userDAO->selectImg($_SESSION['login']) as $row):?>
+                                    
+                                    <img src="<?php echo $row;?>" class="w-75 rounded-circle mB-16" alt="">
+
+                                    <?php
+                                endforeach;
+
                             else: ?>
 
                                 <img src="./src/assets/img/google.png" class="w-75 rounded-circle mB-16" alt="">

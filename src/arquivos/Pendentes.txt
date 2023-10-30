@@ -4,4 +4,3 @@
 --  Opção de redefinir senha
 --  Melhorar os modais das páginas
 --  Padronizar as classes css criadas
--- Ajustar o tamanho da tabela de tarefas

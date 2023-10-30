@@ -271,7 +271,7 @@
 
                     <div class="d-flex justify-content-center col-md-8 d-flex flex-column pL-64 pR-64">
                     
-                    <!-- <h2 class="text-center">Lista de Tarefas</h2> -->
+                    <h3 class="w-50 title-pages mB-16">Lista de Tarefas</h3>
                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                         <table class="table mT-16">
                             <thead class="table-dark">
