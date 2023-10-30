@@ -41,6 +41,8 @@
 
                 $userDAO->insertPhoto($_SESSION['login'], $pasta.$name);
 
+                $_SESSION['img'] = $pasta.$name;
+
             else:
                 $_SESSION['upload'] = 'Não foi possível fazer o upload';
             endif;
@@ -181,14 +183,13 @@
                         
                             if(isset($_SESSION['img'])):?>
 
+                                <div style="overflow: hidden; width: 300px !important; height: 300px !important;" class="d-flex justify-content-center align-items-center border rounded-circle">
+
+                                    <img src="<?php echo $_SESSION['img']; ?>" class="mB-16 border" alt="" style="transform: scale(.5);">
+
+                                </div>
+
                                 <?php
-
-                                foreach ($userDAO->selectImg($_SESSION['login']) as $row):?>
-                                    
-                                    <img src="<?php echo $row;?>" class="w-75 rounded-circle mB-16" alt="">
-
-                                    <?php
-                                endforeach;
 
                             else: ?>
 
