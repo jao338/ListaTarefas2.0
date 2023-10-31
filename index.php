@@ -212,7 +212,7 @@
                                 <div class="w-100 pR-16">
 
                                     <div class="d-flex justify-content-center">
-                                        <label for="arquivo" class="btn btn-outline-primary rounded-pill pL-8 pR-8">Escolha um arquivo</label>
+                                        <label for="arquivo" class="text-nowrap btn btn-outline-primary rounded-pill pL-8 pR-8">Escolha um arquivo</label>
                                         <input type="file" class="form-control" id="arquivo" name="arquivo">
                                         <button type="submit" class="btn btn-primary border rounded-pill mL-8 pR-16 pL-16" name="btn-send-photo">Enviar</button>
                                     </div>
@@ -228,9 +228,8 @@
                                     if(isset($_SESSION['nome'])){
                                         echo "<p class='text-center'>Nome: {$_SESSION['nome']}</p>";
                                         
-                                        // echo "Nome: ".$_SESSION['nome'];
                                     }else{
-                                        echo '';
+                                        
                                     }
                                 ?>
                             </h5>
@@ -239,9 +238,8 @@
                                     if(isset($_SESSION['login'])){
                                         echo "<p class='text-center'>Login: {$_SESSION['login']}</p>";
 
-                                        // echo "Login: ".$_SESSION['login'];
                                     }else{
-                                        echo '';
+                                        
                                     }
                                 ?>
                             </div>
@@ -430,9 +428,52 @@
 
     </main>
 
+    <div class="mobile">
+            
+            <div class="d-flex justify-content-between">
+
+                <a href="index.php">
+                    <img src="./src/assets/img/google.png" width="40" height="40" alt="">
+                </a>
+
+                <form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST" class="navbar-brand logout">
+                    <button type="submit" class="btn btn-light btn-logout rounded-circle" name="btn-logout">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="black" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
+                            <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+
+            <?php
+
+                if(isset($_SESSION['login'])):
+
+                    ?>
+
+                    <div class="d-flex justify-content-center mT-16">
+                        <a href="profile.php" class="text-decoration-none" style="color: white;">Meu perfil</a>
+                    </div>
+
+                    <?php
+
+                    else: ?>
+                        <div class="d-flex justify-content-between mT-16">
+                            <a href="login.php" class="text-decoration-none" style="color: white;">Login</a>
+                            <a href="signup.php" class="text-decoration-none" style="color: white;">Signup</a>
+                        </div>
+                    <?php
+                endif;
+
+            ?>
+
+        </div>
+
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
     <script src="./node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./src/js/index.js"></script>
 
 </body>
 </html>

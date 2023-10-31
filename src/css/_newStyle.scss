@@ -250,13 +250,35 @@ footer p{
     padding-bottom: 32px !important;
 }
 
+.mobile{
+    border: 3px solid yellow;
+    position: absolute;
+    top: 16vh;
+    left: -100vw;
+    overflow-x: hidden;
+    transition: all 2s;
+    padding-left: 32px !important;
+    padding-right: 32px !important;
+    background-color: black;
+    width: 196px;
+    height: 50vh;
+}
+
 @media only screen and (max-width: 1000px){
+
+    // .mobile{
+    //     left: calc(100vw - 196px);
+    // }
 
     #img-profile{
         width: 256px !important;
         height: 256px !important;
     }
 
+    .btn-arq, 
+    .btn-upload{
+        font-size: 10pt !important;        
+    }
 }
 
 @media only screen and (max-width: 770px){
@@ -296,7 +318,7 @@ footer p{
         display: none !important;
     }
 
-    .logout{
+    .navbar .logout{
         display: none !important;
     }
 
@@ -304,7 +326,6 @@ footer p{
         width: 168px !important;
     }
 }
-
 
 @media only screen and (max-width: 512px){
     .form-signup{
@@ -329,5 +350,13 @@ footer p{
         position: absolute;
         top: 0;
         left: 25%;
+    }
+}
+
+
+@media only screen and (max-width: 435px){
+    .table-tasks{
+        padding-left: 16px !important;
+        padding-right: 16px !important;
     }
 }
