@@ -117,9 +117,9 @@
 <body>
     
     <main class="container-fluid">
-        <nav class="navbar fixed-top navbar-expand-lg menu">
+        <nav class="navbar fixed-top navbar-expand-lg menu pL-16 pR-16">
 
-            <div class="container d-flex align-items-center">
+            <div class="container">
 
                 <a href="index.php" class="navbar-brand">
                     <img src="./src/assets/img/google.png" width="64" height="64" alt="">
@@ -127,7 +127,7 @@
 
                 <div class="navbar-brand d-flex align-items-center">
                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" class="d-flex">
-                        <input class="form-control me-2 text-center" type="search" placeholder="Search" aria-label="Search" name="input-search">
+                        <input class="form-control mR-8 text-center input-search" type="search" placeholder="Search" aria-label="Search" name="input-search">
                         <button type="submit" class="btn btn-light btn-search rounded-circle" name="btn-search">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="black" class="bi bi-search" viewBox="0 0 16 16">
                                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
@@ -160,31 +160,37 @@
 
                 </div>
 
-                <form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST" class="d-flex">
+                <form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST" class="navbar-brand logout">
                     <button type="submit" class="btn btn-light btn-logout rounded-circle" name="btn-logout">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="black" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
-                        <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
-                    </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="black" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
+                            <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                        </svg>
                     </button>
-                </form>    
+                </form>
+                
+                <div class="navbar-brand menu-mobile" style="display: none;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" class="bi bi-list" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                    </svg>
+                </div>
 
             </div>
         </nav>
 
-        <div class="content">
+        <div class="content d-flex align-items-center">
             <div class="container">
                 
                 <div class="row">
 
-                    <div class="col-md-4 d-flex justify-content-center flex-column" style="height: 72vh;">
-                        <div class="col-md-6 w-100">
+                    <div class="col-md-4 d-flex justify-content-center align-items-center flex-column">
+                        <div class="col-md-6 w-100 d-flex flex-column align-items-center pT-32">
 
                         <?php 
                         
                             if(isset($_SESSION['img'])):?>
 
-                                <div style="overflow: hidden; width: 300px !important; height: 300px !important;" class="d-flex justify-content-center align-items-center border rounded-circle">
+                                <div id="img-profile" class="d-flex justify-content-center align-items-center border rounded-circle">
 
                                     <img src="<?php echo $_SESSION['img']; ?>" class="mB-16 border" alt="" style="transform: scale(.5);">
 
@@ -202,38 +208,15 @@
                         
                         ?>
                                   
-                            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data">
-                                <div class="d-flex align-items-center w-100 pR-16" style="height: 72px;">
-                                    <div class="w-25 upload">
+                            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data" class="mT-16">
+                                <div class="w-100 pR-16">
 
-                                        <div class="msg">
-                                            <?php 
-                                                if(isset($_FILES['arquivo'])): echo $_SESSION['upload']; ?>
-
-                                                    <script>
-                                                        window.onload = function(){
-                                                            let a = document.querySelector('.msg');
-
-                                                            setTimeout(() => {
-                                                                a.innerHTML = "Formatos válidos: 'jpg', 'jpeg' e 'png'.";
-                                                            }, 3000);
-                                                        }
-                                                    </script>
-
-                                                    <?php
-                                                else:
-                                                    echo "Formatos válidos: 'jpg', 'jpeg' e 'png'.";
-                                                endif;
-                                            ?>
-                                        </div>
-                                        
-                                    </div>
-
-                                    <div class="w-75 d-flex justify-content-end">
+                                    <div class="d-flex justify-content-center">
                                         <label for="arquivo" class="btn btn-outline-primary rounded-pill pL-8 pR-8">Escolha um arquivo</label>
                                         <input type="file" class="form-control" id="arquivo" name="arquivo">
                                         <button type="submit" class="btn btn-primary border rounded-pill mL-8 pR-16 pL-16" name="btn-send-photo">Enviar</button>
                                     </div>
+
                                 </div>
                             </form>
 
@@ -243,7 +226,9 @@
                             <h5>
                                 <?php 
                                     if(isset($_SESSION['nome'])){
-                                        echo "Nome: ".$_SESSION['nome'];
+                                        echo "<p class='text-center'>Nome: {$_SESSION['nome']}</p>";
+                                        
+                                        // echo "Nome: ".$_SESSION['nome'];
                                     }else{
                                         echo '';
                                     }
@@ -252,7 +237,9 @@
                             <div> 
                                 <?php 
                                     if(isset($_SESSION['login'])){
-                                        echo "Login: ".$_SESSION['login'];
+                                        echo "<p class='text-center'>Login: {$_SESSION['login']}</p>";
+
+                                        // echo "Login: ".$_SESSION['login'];
                                     }else{
                                         echo '';
                                     }
@@ -261,9 +248,9 @@
                         </div>
                     </div>
 
-                    <div class="d-flex justify-content-center col-md-8 d-flex flex-column pL-64 pR-64">
+                    <div class="d-flex justify-content-center col-md-8 d-flex flex-column table-tasks">
                     
-                    <h3 class="w-50 title-pages mB-32">Lista de Tarefas</h3>
+                    <h3 class="w-100 title-pages mB-32">Lista de Tarefas</h3>
                     <table class="table table-hover border">
                         <thead class="table-dark">
                             <tr>
@@ -417,11 +404,11 @@
 
             <div class="container">
                 <div class="row">
-                    <div class="col-md-4 d-flex justify-content-center">
+                    <div class="col-md-4 d-flex justify-content-center text-center">
                         <p>João Henrique</p>
                     </div>
 
-                    <div class="col-md-4 d-flex justify-content-center">
+                    <div class="col-md-4 d-flex justify-content-center text-center">
                         <p>CRUD - Lista de tarefas com PDO</p>
                     </div>
                     <div class="col-md-4 d-flex justify-content-center">

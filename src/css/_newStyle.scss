@@ -6,8 +6,14 @@
     font-family: 'Poppins', sans-serif;
 }
 
+.container{
+    border: 1px solid blue;
+}
+
 .navbar-brand{
-    height: auto !important;
+    padding-bottom: 0 !important;
+    padding-top: 0 !important;
+    margin-right: 0 !important;
 }
 
 .menu{
@@ -33,6 +39,10 @@
 
 .input{
     height: 48px;
+}
+
+.input-search{
+    width: 304px !important;
 }
 
 .form-signup{
@@ -107,10 +117,15 @@
     height: 100vh;
 }
 
+
 //  Margin
 
 .mL-8{
     margin-left: 8px !important;
+}
+
+.mR-8{
+    margin-right: 8px !important;
 }
 
 .mR-16{
@@ -222,6 +237,72 @@ footer p{
     // color: rgb(11, 110, 253);
     font-weight: 700;
     font-size: 26pt;
+}
+
+#img-profile{
+    width: 304px !important;
+    height: 304px !important;
+    overflow: hidden;
+}
+
+.table-tasks{
+    padding-left: 64px !important;
+    padding-bottom: 32px !important;
+}
+
+@media only screen and (max-width: 1000px){
+
+    #img-profile{
+        width: 256px !important;
+        height: 256px !important;
+    }
+
+}
+
+@media only screen and (max-width: 770px){
+
+    .input-search{
+        width: 184px !important;
+    }
+
+    footer .col-md-4:first-child{
+        display: none !important;
+    }
+
+    footer .col-md-4:nth-child(2){
+        margin-bottom: 16px !important;
+    }
+
+    .content{
+        height: auto !important;
+    }
+
+    .table-tasks{
+        padding-right: 32px !important;
+        padding-left: 32px !important;
+    }
+
+    .title-pages{
+        text-align: center;
+    }
+}
+
+@media only screen and (max-width: 570px){
+    .menu-mobile{
+        display: flex !important;
+    }
+
+    .log{
+        display: none !important;
+    }
+
+    .logout{
+        display: none !important;
+    }
+
+    .input-search{
+        width: 168px !important;
+    }
 }
 
 
