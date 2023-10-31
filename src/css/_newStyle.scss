@@ -6,10 +6,6 @@
     font-family: 'Poppins', sans-serif;
 }
 
-.container{
-    border: 1px solid blue;
-}
-
 .navbar-brand{
     padding-bottom: 0 !important;
     padding-top: 0 !important;
@@ -251,7 +247,6 @@ footer p{
 }
 
 .mobile{
-    border: 3px solid yellow;
     position: absolute;
     top: 16vh;
     left: -100vw;
@@ -265,10 +260,6 @@ footer p{
 }
 
 @media only screen and (max-width: 1000px){
-
-    // .mobile{
-    //     left: calc(100vw - 196px);
-    // }
 
     #img-profile{
         width: 256px !important;
